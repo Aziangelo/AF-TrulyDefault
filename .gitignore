@@ -2,7 +2,6 @@
 build/
 data/
 env/
-.bak/
 
 # ignore files
 copy.sh
