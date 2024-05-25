@@ -1,4 +1,4 @@
-# ignore dirs
+# ingnore dirs
 build/
 data/
 env/
