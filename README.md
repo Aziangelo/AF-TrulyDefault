@@ -1,4 +1,4 @@
-## AziFy Truly Default SHADER
+# AziFy Truly Default SHADER
 > A Shader for Minecraft.
 
 Supports Android, iOS, and Windows
