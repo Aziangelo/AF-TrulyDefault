@@ -16,7 +16,7 @@ $output v_color0, v_skypos, v_cpos
 uniform vec4 SkyColor;
 uniform vec4 FogColor;
 uniform vec4 FogAndDistanceControl;
-#include <azifyTD/utils/functions.glsl>
+#include <azify/utils/functions.glsl>
 
 void main() {
 #if defined(OPAQUE)

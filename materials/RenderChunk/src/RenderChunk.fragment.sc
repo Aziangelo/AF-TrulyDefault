@@ -11,7 +11,7 @@ uniform vec4 ViewPositionAndTime;
 SAMPLER2D(s_MatTexture, 0);
 SAMPLER2D(s_SeasonsTexture, 1);
 SAMPLER2D(s_LightMapTexture, 2);
-#include <azifyTD/utils/functions.glsl>
+#include <azify/utils/functions.glsl>
 
 void main() {
     vec4 diffuse;
