@@ -6,7 +6,7 @@
 ![Screenshots](azifyss/ss1.jpg "AziFy Truly Default v1.0")
 ![Screenshot2](azifyss/ss2.jpg "AziFy Truly Default v1.0")
 
-
+&nbsp;
 ## Installation
 
 > [!NOTE]
@@ -25,8 +25,7 @@
 1. Install [Patched Minecraft App](https://devendrn.github.io/renderdragon-shaders/shaders/installation/android#using-patch-app)
 2. Import the resource pack and activate it in global resources.
 
-
-
+&nbsp;
 ## How To Customize?
 > This is an **Experimental Customization**
 **Android:**
@@ -59,6 +58,7 @@ Requirements:
 ```./build.sh -m RenderChunk```
 If you want to compile RenderChunk.bin
 
+&nbsp;
 
 **Available parameters for the build script:**
 | Option | Parameter description |
