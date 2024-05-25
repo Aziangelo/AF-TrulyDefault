@@ -28,7 +28,8 @@
 &nbsp;
 ## How To Customize?
 > This is an **Experimental Customization**
-**Android:**
+
+### Android:
 
 Requirements:
 - Download Termux.
