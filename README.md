@@ -1,11 +1,7 @@
 # AziFy Truly Default SHADER
 > A Shader for Minecraft.
 
-Supports Android, iOS, and Windows
-
-
-<span style="color:blue"> AZIFY SHADER</span>
-
+**Supports Android, iOS, and Windows**
 
 ![Screenshots](azifyss/ss1.jpg "AziFy Truly Default v1.0")
 ![Screenshot2](azifyss/ss2.jpg "AziFy Truly Default v1.0")
