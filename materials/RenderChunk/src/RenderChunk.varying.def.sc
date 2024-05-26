@@ -13,3 +13,4 @@ centroid vec2 v_texcoord0  : TEXCOORD0;
 vec2          v_lightmapUV : TEXCOORD1;
 vec3 v_cpos : POSITION;
 vec3 v_wpos : TEXCOORD3;
+vec4 v_wDisplace : TEXCOORD4;

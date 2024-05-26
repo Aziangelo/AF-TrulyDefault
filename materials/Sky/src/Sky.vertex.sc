@@ -27,7 +27,7 @@ void main() {
     v_skypos = tmpvar.xyz + vec3(0.0, 0.128, 0.0);
     v_cpos = a_position;
 
-    vec3 fogclr = timecycle(vec3(.63,.82,1), vec3(1,.51,.34), vec3(.04,.05,.09));
+    vec3 fogclr = timecycle3(vec3(.63,.82,1), vec3(1,.51,.34), vec3(.04,.05,.09));
     fogclr = mix(fogclr, vec3(0.4), AFrain);
     v_color0 = mix(SkyColor, FogColor, a_color0.x);
     gl_Position = mul(u_modelViewProj, tmpvar);
