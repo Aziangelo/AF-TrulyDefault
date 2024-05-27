@@ -3,13 +3,15 @@ $input a_position, a_color0, a_texcoord0, a_indices, a_normal
     $input i_data0, i_data1, i_data2
 #endif
 
-$output v_color0, v_fog, v_light, v_texcoord0
+$output v_color0, v_fog, v_light, v_texcoord0, v_wpos
 
 #include <bgfx_shader.sh>
 #include <MinecraftRenderer.Materials/FogUtil.dragonh>
 #include <MinecraftRenderer.Materials/DynamicUtil.dragonh>
 #include <MinecraftRenderer.Materials/TAAUtil.dragonh>
 
+uniform vec4 SkyColor;
+uniform vec4 FogAndDistanceControl;
 uniform vec4 ColorBased;
 uniform vec4 ChangeColor;
 uniform vec4 UseAlphaRewrite;
@@ -25,8 +27,10 @@ uniform vec4 LightDiffuseColorAndIntensity;
 uniform vec4 LightWorldSpaceDirection;
 uniform vec4 HudOpacity;
 uniform vec4 UVAnimation;
+uniform vec4 RenderChunkFogAlpha;
 uniform mat4 Bones[8];
 
+#include <azify/utils/functions.glsl>
 void main() {
     mat4 World = u_model[0];
     
@@ -58,7 +62,12 @@ void main() {
     //StandardTemplate_InvokeVertexOverrideFunction
     position = jitterVertexPosition(worldPosition);
     float cameraDepth = position.z;
-    float fogIntensity = calculateFogIntensity(cameraDepth, FogControl.z, FogControl.x, FogControl.y);
+    float relativeDist = cameraDepth / FogControl.z;
+    //relativeDist = saturate((relativeDist - FogControl.x) / (FogControl.y - FogControl.x));
+    lowp float density = timecycle3(0.15, 5.5, 0.25);
+    float fogIntensity;
+    fogIntensity = smoothstep(FogAndDistanceControl.x, FogAndDistanceControl.y, relativeDist);
+    fogIntensity += (1.0-fogIntensity)*(0.5-0.5*exp(-relativeDist*relativeDist*density));
     vec4 fog = vec4(FogColor.rgb, fogIntensity);
 
 #if defined(DEPTH_ONLY)
@@ -69,6 +78,7 @@ void main() {
     v_color0 = a_color0;
 #endif
 
+    v_wpos = position.xyz;
     v_fog = fog; 
     v_light = light;
     gl_Position = position;

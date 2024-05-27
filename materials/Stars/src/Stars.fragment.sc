@@ -7,6 +7,6 @@ uniform vec4 StarsColor;
 void main() {
     vec4 starColor;
     starColor.a = v_color0.a;
-    starColor.rgb = v_color0.rgb * StarsColor.rgb * v_color0.a;
+    starColor.rgb = v_color0.rgb * StarsColor.rgb * v_color0.a +1.5;
     gl_FragColor = starColor;
 }

@@ -51,10 +51,11 @@ void main() {
     gl_Position = mul(u_viewProj, vec4(worldPos, 1.0));
 
   // WAVE MOVEMENTS
+  #ifdef PLANTS_WAVE
   bool isColors = color.r != color.g || color.r != color.b;
   #if defined(ALPHA_TEST)
    if (isColors) {
-     float time = ViewPositionAndTime.w;
+     float time = ViewPositionAndTime.w * PLANTS_WAVE_SPEED;
      mediump vec3 tlpos = vec3(mod (a_position, vec3(2.0, 2.0, 2.0)));
      mediump float wz1 = sin(tlpos.z * 1.0 + time * 1.5) * 0.07;
      mediump float wz2 = sin(tlpos.x * 1.0 + time * 0.4) * 0.04;
@@ -63,5 +64,6 @@ void main() {
      mediump float wz5 = sin(tlpos.z) * 0.1;
      gl_Position.x += wz1 + wz2 + wz3 + wz4 * wz5;
    }
+  #endif
   #endif
 }

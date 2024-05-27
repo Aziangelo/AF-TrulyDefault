@@ -1,7 +1,7 @@
 #ifndef FUNCTIONS
  #define FUNCTIONS
-
-
+#include <azify/utils/components.glsl>
+#include <azify/shader_inputs.glsl>
 
 // TIME AND WORLD DETECTIONS ========>>>>>>
  #define detect(a,b,x) clamp(((x)-(a))/((b)-(a)), 0.0, 1.0)
@@ -37,13 +37,13 @@ vec3 dynamicSky(lowp vec3 diff, mediump vec3 skyPos) {
   mediump float smoothingX = smoothstep(0.3, 1.8, costheta);
   // ABOVE UPPER COLOR
   lowp vec3 skyCol_X;
-            skyCol_X = mix (mix (mix (vec3(0.0, 0.2, 0.45), vec3(0.65,0.2,0.35)*0.85, AFdusk), vec3(0.0,0.0,0.15), AFnight), mix(vec3(0.8, 0.8, 0.8), vec3(0.1), AFnight), AFrain);
+            skyCol_X = mix (mix (mix (vec3(0.0, 0.2, 0.45), vec3(0.2,0.11,0.3), AFdusk), vec3(0.0,0.0,0.15), AFnight), mix(vec3(0.8, 0.8, 0.8), vec3(0.1), AFnight), AFrain);
   // UPPER COLOR
   lowp vec3 skyCol_1;
             skyCol_1 = mix (mix (mix (vec3(SkyColor.xyz), vec3(0.9,0.8,1.04), AFdusk), vec3(0.1,0.15,0.3), AFnight), mix(vec3(0.8, 0.8, 0.8), vec3(0.1), AFnight), AFrain);
   // MIDDLE POINT COLOR
   lowp vec3 skyCol_2;
-            skyCol_2 = mix (mix (mix (vec3(FogColor.xyz)+0.25, vec3(1.0, 0.43, 0.23)+0.16, AFdusk), vec3(0.35, 0.6, 0.8)+0.1, AFnight), mix(vec3(0.43, 0.43, 0.43), vec3(0.05), AFnight), AFrain);
+            skyCol_2 = mix (mix (mix (vec3(FogColor.xyz)+0.3, vec3(1.0, 0.43, 0.23)+0.16, AFdusk), vec3(0.35, 0.6, 0.8)+0.1, AFnight), mix(vec3(0.43, 0.43, 0.43), vec3(0.05), AFnight), AFrain);
   // UPPER BOTTOM COLOR
   lowp vec3 darkCol_1;
             darkCol_1 = mix (mix (mix (vec3(0.45, 0.5, 0.7), vec3(0.98, 0.2, 0.08), AFdusk), vec3(0.0, 0.1, 0.3), AFnight), mix(vec3(0.43, 0.43, 0.43), vec3(0.05), AFnight), AFrain);
@@ -59,7 +59,5 @@ vec3 dynamicSky(lowp vec3 diff, mediump vec3 skyPos) {
     diff = (color);
   return diff;
 }
-
-#include <azify/utils/components.glsl>
 
 #endif
