@@ -1,7 +1,9 @@
 # AziFy Truly Default SHADER
-> A Shader for Minecraft.
+The AziFy Shader Variant, called Truly Default, enhances the classic vanilla look of Minecraft. It focuses on being lightweight while delivering ultra-realistic visuals.
 
 **Supports Android, iOS, and Windows**
+> [!Warning]
+> This is an experimental repository.
 
 ![Screenshot](azifyss/ss1.jpg "v3.0")
 ![Screenshot](azifyss/ss2.jpg "v3.0")
