@@ -3,15 +3,15 @@
 
 **Supports Android, iOS, and Windows**
 
-![Screenshots](azifyss/ss1.jpg "AziFy Truly Default v3.0")
-![Screenshot2](azifyss/ss2.jpg "AziFy Truly Default v3.0")
+![Screenshot](azifyss/ss1.jpg "v3.0")
+![Screenshot](azifyss/ss2.jpg "v3.0")
 
 &nbsp;
 &nbsp;
-### TURN OFF BY DEFAULT FEATURES
-![Preview](azifyss/prev1.png "AziFy Truly Default v3.0")
-![Preview](azifyss/prev2.png "AziFy Truly Default v3.0")
-![Preview](azifyss/prev3.png "AziFy Truly Default v3.0")
+### Turn Off by Default Features
+![Preview](azifyss/prev1.png "v3.0")
+![Preview](azifyss/prev2.png "v3.0")
+![Preview](azifyss/prev3.png "v3.0")
 
 
 &nbsp;
