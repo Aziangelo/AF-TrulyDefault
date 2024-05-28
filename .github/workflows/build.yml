@@ -22,7 +22,7 @@ jobs:
     - run: .\build.bat -p Windows
     - uses: actions/upload-artifact@v4
       with:
-        name: Azify-Window
+        name: Azify-Windows
         path: ./build/Windows
   android:
     runs-on: ubuntu-latest
