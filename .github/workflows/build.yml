@@ -22,7 +22,7 @@ jobs:
     - run: .\build.bat -p Windows
     - uses: actions/upload-artifact@v4
       with:
-        name: Azify:Windows
+        name: Azify-Windows
         path: ./build/Windows
   android:
     runs-on: ubuntu-latest
@@ -40,7 +40,7 @@ jobs:
     - run: ./build.sh -p Android
     - uses: actions/upload-artifact@v4
       with:
-        name: Azify:Android
+        name: Azify-Android
         path: ./build/Android
   ios:
     runs-on: ubuntu-latest
@@ -56,5 +56,5 @@ jobs:
     - run: ./build.sh -p iOS
     - uses: actions/upload-artifact@v4
       with:
-        name: Azify:iOS
+        name: Azify-iOS
         path: ./build/iOS
