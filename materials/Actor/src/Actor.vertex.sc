@@ -10,8 +10,6 @@ $output v_color0, v_fog, v_light, v_texcoord0, v_wpos
 #include <MinecraftRenderer.Materials/DynamicUtil.dragonh>
 #include <MinecraftRenderer.Materials/TAAUtil.dragonh>
 
-uniform vec4 SkyColor;
-uniform vec4 FogAndDistanceControl;
 uniform vec4 ColorBased;
 uniform vec4 ChangeColor;
 uniform vec4 UseAlphaRewrite;
@@ -20,7 +18,6 @@ uniform vec4 MatColor;
 uniform vec4 OverlayColor;
 uniform vec4 TileLightColor;
 uniform vec4 MultiplicativeTintColor;
-uniform vec4 FogColor;
 uniform vec4 FogControl;
 uniform vec4 ActorFPEpsilon;
 uniform vec4 LightDiffuseColorAndIntensity;
@@ -29,6 +26,10 @@ uniform vec4 HudOpacity;
 uniform vec4 UVAnimation;
 uniform vec4 RenderChunkFogAlpha;
 uniform mat4 Bones[8];
+uniform vec4 SkyColor;
+uniform vec4 FogColor;
+uniform vec4 FogAndDistanceControl;
+uniform vec4 ViewPositionAndTime;
 
 #include <azify/utils/functions.glsl>
 void main() {
@@ -56,7 +57,7 @@ void main() {
 #else
     worldPosition = mul(World, vec4(a_position, 1.0)).xyz;
 #endif
-    
+#include <azify/utils/components.glsl> // Components Files
     vec4 position;// = mul(u_viewProj, vec4(worldPosition, 1.0));
 
     //StandardTemplate_InvokeVertexOverrideFunction
@@ -78,7 +79,7 @@ void main() {
     v_color0 = a_color0;
 #endif
 
-    v_wpos = position.xyz;
+    v_cpos = position.xyz;
     v_fog = fog; 
     v_light = light;
     gl_Position = position;

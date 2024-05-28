@@ -10,7 +10,6 @@ uniform vec4 ColorBased;
 uniform vec4 MultiplicativeTintColor;
 uniform vec4 SkyColor;
 uniform vec4 FogColor;
-uniform float RenderDistance;
 uniform vec4 FogAndDistanceControl;
 uniform vec4 ViewPositionAndTime;
 #include <azify/utils/functions.glsl>
@@ -29,15 +28,29 @@ void main() {
 #else
     albedo = applyColorChange(albedo, ChangeColor, v_color0.a);
 #endif
+#include <azify/utils/components.glsl> // Components Files
 
     albedo = applyOverlayColor(albedo, OverlayColor);
     //albedo = applyLighting(albedo, v_light);
-    #ifdef ENABLE_LIGHTS
-      //albedo = applyActorDiffuse(albedo, v_color0.rgb, vec4(1.0), ColorBased.x, OverlayColor);
-      float isCaveX = smoothstep(0.65, 0.1, v_light.b);
-      float isTorch = smoothstep(0.5, 1.0, v_light.r);
-      isTorch =  (pow(isTorch, 6.)*0.5+isTorch*0.5);
+    float isCaveX = smoothstep(0.65, 0.1, v_light.b);
+    float isTorch = smoothstep(0.5, 1.0, v_light.r);
+    isTorch =  (pow(isTorch, 6.)*0.5+isTorch*0.5);
+
+    #ifdef ENABLE_LIGHTS    
+    if (dev_UnWater) {
+      albedo.rgb *= vec3(0.4, 0.5, 0.8);
       
+    } else if (dev_Nether) {
+      mediump vec3 netherColor = vec3(0.38);
+      netherColor = mix(netherColor, vec3(1.0), isTorch);
+      albedo.rgb *= netherColor;
+     
+    } else if (dev_End) {
+      mediump vec3 endColor = vec3(0.5);
+      endColor = mix(endColor, vec3(1.0), isTorch);
+      albedo.rgb *= endColor;
+      
+    } else {
       vec3 red = vec3(1.0,0.0, 0.0);
       vec3 gren = vec3(0.0, 1.0, 0.0);
       vec3 blue = vec3(0.0, 0.0, 1.0);
@@ -45,7 +58,9 @@ void main() {
       worldColor = mix(worldColor, vec3(0.14,0.14,0.14), isCaveX);
       worldColor = mix(worldColor, vec3(1.0), isTorch);
       albedo.rgb *= worldColor;
+    }
     #endif
+
 
 #if ALPHA_TEST
     if (albedo.a < 0.5) {

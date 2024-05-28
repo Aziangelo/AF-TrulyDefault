@@ -12,8 +12,11 @@ $output v_texcoord0, v_color0, v_light, v_fog
 
 uniform vec4 FogControl;
 uniform vec4 OverlayColor;
-uniform vec4 FogColor;
 uniform vec4 TileLightColor;
+uniform vec4 SkyColor;
+uniform vec4 FogColor;
+uniform vec4 FogAndDistanceControl;
+uniform vec4 ViewPositionAndTime;
 
 void main() {
     mat4 World = u_model[0];

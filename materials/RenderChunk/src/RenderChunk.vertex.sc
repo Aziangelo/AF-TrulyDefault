@@ -20,6 +20,7 @@ void main() {
 #else
     model = u_model[0];
 #endif
+#include <azify/utils/components.glsl> // Components Files
 
     vec3 worldPos = mul(model, vec4(a_position, 1.0)).xyz;
     vec4 color;
@@ -50,7 +51,7 @@ void main() {
     v_wpos = worldPos;
     gl_Position = mul(u_viewProj, vec4(worldPos, 1.0));
 
-  // WAVE MOVEMENTS
+  // WAVE MOVEMENTS - Licensed By: Azi Angelo
   #ifdef PLANTS_WAVE
   bool isColors = color.r != color.g || color.r != color.b;
   #if defined(ALPHA_TEST)
