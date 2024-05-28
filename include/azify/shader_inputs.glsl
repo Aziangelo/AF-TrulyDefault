@@ -10,8 +10,8 @@
 #define ENABLE_LIGHTS               //  [ TOGGLE ] <- DISABLE TO GET NIGHT VISION EFFECT
 
 #define GLOSSY_WET_EFFECT           //  [ TOGGLE ]
-#define RAIN_TERRAIN_REFLECTION     //  [ TOGGLE ]
-#define RAIN_THICK_FOG              //  [ TOGGLE ]
+//#define RAIN_TERRAIN_REFLECTION     //  [ TOGGLE ]
+//#define RAIN_THICK_FOG              //  [ TOGGLE ]
 
 #define SIMULATED_WATER             //  [ TOGGLE ]
 #define WATER_SUNRAY                //  [ TOGGLE ]
@@ -26,8 +26,11 @@
 
 #define DIRLIGHT_BOTTOM             //  [ TOGGLE ]
 
+//#define HEAT_WAVE                   //  [ TOGGLE ]
 #define PLANTS_WAVE                 //  [ TOGGLE ]
 #define PLANTS_WAVE_SPEED 1.0       // MORE HIGH MORE SPEED!
+#define WATER_WAVE                  //  [ TOGGLE ]
+#define WATER_WAVE_SPEED 1.0        // MORE HIGH MORE SPEED!
 
 // COLORS SETTING ======================>>>>>>>>>>>>
 lowp vec3 torchColor = vec3(1.0, 0.74, 0.33);       // OVERALL COLOR

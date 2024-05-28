@@ -6,17 +6,17 @@
  #define detect(a,b,x) clamp(((x)-(a))/((b)-(a)), 0.0, 1.0)
  #define disf ((FogAndDistanceControl.w-80.0)/112.0)
  lowp float AFnether = detect( 0.24, 0.13 - ( 0.08 * disf ), FogAndDistanceControl.x );
- lowp float AFrain = detect( 0.66 - ( 0.32 * disf ), 0.24, FogAndDistanceControl.x ) * ( 1.0 -  AFnether );
+ lowp float AFrain = smoothstep(0.66, 0.3, FogAndDistanceControl.x);
  lowp float AFnight = mix( detect( 0.65, 0.02, FogColor.r ), detect( 0.15, 0.01, FogColor.g ), AFrain );
  lowp float AFdusk = mix( detect( 1.0, 0.0, FogColor.b ), detect( 0.25, 0.15, FogColor.g ), AFrain );
- #define timecycle3( a, b, c ) mix( mix( a, b, AFdusk ), c, AFnight )
+ #define timecycle3( a, b, c ) mix(mix( a, b, AFdusk ), c, AFnight )
  #define timecycle4( a, b, c , d) mix(mix( mix( a, b, AFdusk ), c, AFnight ), d, AFrain)
  // END OF TIME DETECTIONS =========>>>>>>>>
  
  
  // DIMENSIONS DETECTIONS =====================>>>>
  bool detectUnderwater(vec3 FOG_COLOR, vec2 FOG_CONTROL) {
-    return FOG_CONTROL.x==0.0 && FOG_CONTROL.y<0.8 && (FOG_COLOR.b>FOG_COLOR.r || FOG_COLOR.g>FOG_COLOR.r);
+    return (FOG_CONTROL.x==0.0 && FOG_CONTROL.y<0.8) && (FOG_COLOR.b>FOG_COLOR.r || FOG_COLOR.g>FOG_COLOR.r);
   }
   
   bool detectNether(vec3 FOG_COLOR, vec2 FOG_CONTROL) {
@@ -62,19 +62,19 @@ vec3 dynamicSky(lowp vec3 diff, mediump vec3 skyPos) {
   mediump float smoothingX = smoothstep(0.3, 1.8, costheta);
   // ABOVE UPPER COLOR
   lowp vec3 skyCol_X;
-            skyCol_X = mix (mix (mix (vec3(0.0, 0.2, 0.45), vec3(0.2,0.11,0.3), AFdusk), vec3(0.0,0.0,0.15), AFnight), mix(vec3(0.8, 0.8, 0.8), vec3(0.1), AFnight), AFrain);
+            skyCol_X = mix (mix (mix (vec3(0.0, 0.2, 0.45), vec3(0.2,0.11,0.3), AFdusk), vec3(0.0,0.0,0.15), AFnight), mix(vec3(0.65), vec3(0.1), AFnight), AFrain);
   // UPPER COLOR
   lowp vec3 skyCol_1;
-            skyCol_1 = mix (mix (mix (vec3(SkyColor.xyz), vec3(0.9,0.8,1.04), AFdusk), vec3(0.1,0.15,0.3), AFnight), mix(vec3(0.8, 0.8, 0.8), vec3(0.1), AFnight), AFrain);
+            skyCol_1 = mix (mix (mix (vec3(SkyColor.xyz), vec3(0.9,0.8,1.04), AFdusk), vec3(0.1,0.15,0.3), AFnight), mix(vec3(0.8, 0.8, 0.8), vec3(0.25), AFnight), AFrain);
   // MIDDLE POINT COLOR
   lowp vec3 skyCol_2;
-            skyCol_2 = mix (mix (mix (vec3(FogColor.xyz)+0.3, vec3(1.0, 0.43, 0.23)+0.16, AFdusk), vec3(0.35, 0.6, 0.8)+0.1, AFnight), mix(vec3(0.43, 0.43, 0.43), vec3(0.05), AFnight), AFrain);
+            skyCol_2 = mix (mix (mix (vec3(FogColor.xyz)+0.14, vec3(1.0, 0.43, 0.23)+0.16, AFdusk), vec3(0.35, 0.6, 0.8)+0.1, AFnight), mix(vec3(0.43, 0.43, 0.43), vec3(0.3), AFnight), AFrain);
   // UPPER BOTTOM COLOR
   lowp vec3 darkCol_1;
-            darkCol_1 = mix (mix (mix (vec3(0.45, 0.5, 0.7), vec3(0.98, 0.2, 0.08), AFdusk), vec3(0.0, 0.1, 0.3), AFnight), mix(vec3(0.43, 0.43, 0.43), vec3(0.05), AFnight), AFrain);
+            darkCol_1 = mix (mix (mix (vec3(0.45, 0.5, 0.7), vec3(0.98, 0.4, 0.28), AFdusk), vec3(0.0, 0.1, 0.3), AFnight), mix(vec3(0.43, 0.43, 0.43), vec3(0.05), AFnight), AFrain);
   // BOTTOM COLOR
   lowp vec3 darkCol_2;
-            darkCol_2 = mix (mix (mix (vec3(0.4, 0.5, 0.7), vec3(0.76, 0.1, 0.0), AFdusk), vec3(0.0, 0.0, 0.1), AFnight), mix(vec3(0.43, 0.43, 0.43), vec3(0.05), AFnight), AFrain);
+            darkCol_2 = mix (mix (mix (vec3(0.4, 0.5, 0.7), vec3(0.76, 0.3, 0.2), AFdusk), vec3(0.0, 0.0, 0.1), AFnight), mix(vec3(0.43, 0.43, 0.43), vec3(0.05), AFnight), AFrain);
 // CALCULATE SKY COLORS
   mediump vec3 color;
     color = mix(skyCol_2, skyCol_1, smoothing);
@@ -89,6 +89,7 @@ float sunDirShadow(vec4 color0, vec2 lightmapUV) {
     mediump float shadow = smoothstep(0.885, 0.71, color0.y + 0.2 * (color0.y - color0.z));
     return mix(shadow, 0.0, pow(lightmapUV.x, 3.0));
 }
+
 
 
 #endif

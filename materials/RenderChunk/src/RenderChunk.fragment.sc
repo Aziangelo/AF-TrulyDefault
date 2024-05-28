@@ -119,8 +119,8 @@ void main() {
       float rayBlendFactor = clamp(1.0- length(v_wpos.zy / v_wpos.x* 7.8* vec2(0.2, 0.1))- waterDisp* 0.3, 0.0, 1.0);
       
       #ifdef WATER_SUNRAY // WATER SUN RAYS BLOOM
-      diffuse = mix(diffuse, vec4(skyMIEP, 1.0), smoothstep(0.0, 1.0, rayBlendFactor)* v_lightmapUV.y* (1.0- AFnight)* (1.0-AFrain)* (AFdusk));
-      diffuse = mix(diffuse, vec4(1.0, 0.7, 0.15, 1.0)* 1.5, smoothstep(0.0, 0.75, sunRayFactor)* v_lightmapUV.y* (1.0- AFnight)* (1.0-AFrain)* (AFdusk));
+      diffuse = mix(diffuse, vec4(skyMIEP, 0.9), smoothstep(0.0, 1.0, rayBlendFactor)* v_lightmapUV.y* (1.0- AFnight)* (1.0-AFrain)* (AFdusk));
+      diffuse = mix(diffuse, vec4(1.0, 0.7, 0.15, 1.0)* 1.8, smoothstep(0.0, 0.75, sunRayFactor)* v_lightmapUV.y* (1.0- AFnight)* (1.0-AFrain)* (AFdusk));
       #endif
     }
   #endif
@@ -174,7 +174,7 @@ void main() {
   #if TORCHLIGHT_MODES == 0
       diffuse +=  diffuse* vec4(0.9)* v_lightmapUV.x;
   #elif TORCHLIGHT_MODES == 1
-      mediump float torchPower = pow(v_lightmapUV.x* 1.06, 4.0);
+      mediump float torchPower = pow(v_lightmapUV.x* 1.09, 4.0);
       diffuse += diffuse* (vec4(torchColor, 1.0)* torchPower);
   #elif TORCHLIGHT_MODES == 2
       mediump float smotherLight = smoothstep(0.7, 1.1, v_lightmapUV.x);

@@ -79,7 +79,7 @@ void main() {
     v_color0 = a_color0;
 #endif
 
-    v_cpos = position.xyz;
+    v_wpos = position.xyz;
     v_fog = fog; 
     v_light = light;
     gl_Position = position;

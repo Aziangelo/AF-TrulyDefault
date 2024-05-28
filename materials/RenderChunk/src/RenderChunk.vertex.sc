@@ -43,6 +43,7 @@ void main() {
     };
 #endif
 
+    // CALCULATE FUNTCTIONS
     v_texcoord0 = a_texcoord0;
     v_lightmapUV = a_texcoord1;
     v_color0 = color;
@@ -50,6 +51,40 @@ void main() {
     v_cpos = a_position;
     v_wpos = worldPos;
     gl_Position = mul(u_viewProj, vec4(worldPos, 1.0));
+    float htime = ViewPositionAndTime.w;
+    mediump vec3 tlpos = vec3(mod (a_position, vec3(2.0, 2.0, 2.0)));
+
+    // CALVULATE HEAT WAVE - Licensed By: Azi Angelo
+    #ifdef HEAT_WAVE
+    if (dev_Nether) {
+      mediump float hw1 = sin(tlpos.z * 1.0 + htime * 11.0) * 0.005;
+      mediump float hw2 = sin(tlpos.x * 1.0 + htime * 11.0) * 0.003;
+      mediump float hw4 = sin(tlpos.y * 1.0 + htime * 11.0) * 0.00;
+      mediump float hw5 = sin(tlpos.z) * 0.1;
+      gl_Position.x += hw1 + hw2 + hw4;
+      gl_Position.y += hw1 + hw2 + hw4;
+    }
+    #endif
+
+  // DETERMINE WATER TEXTURE
+  lowp float waterFlag = 0.0;
+  #ifdef TRANSPARENT
+      if (v_color0.r != v_color0.g || v_color0.g != v_color0.b || v_color0.r != v_color0.b) {
+          waterFlag = 1.0;
+      }
+  #endif
+
+  #ifdef WATER_WAVE
+  if (waterFlag > 0.5) {
+      float wtime = ViewPositionAndTime.w * WATER_WAVE_SPEED;
+      mediump float ww1 = sin(tlpos.z * 1.0 + wtime * 2.0) * 0.05;
+      mediump float ww2 = sin(tlpos.x * 1.0 + wtime * 1.5) * 0.03;
+      mediump float ww4 = sin(tlpos.y * 1.5 + wtime * 5.0) * 0.02;
+      mediump float ww5 = sin(tlpos.z) * 0.1;
+      gl_Position.y += ww1 + ww2 + ww4 * ww5;
+  }
+  #endif
+  
 
   // WAVE MOVEMENTS - Licensed By: Azi Angelo
   #ifdef PLANTS_WAVE
@@ -57,7 +92,6 @@ void main() {
   #if defined(ALPHA_TEST)
    if (isColors) {
      float time = ViewPositionAndTime.w * PLANTS_WAVE_SPEED;
-     mediump vec3 tlpos = vec3(mod (a_position, vec3(2.0, 2.0, 2.0)));
      mediump float wz1 = sin(tlpos.z * 1.0 + time * 1.5) * 0.07;
      mediump float wz2 = sin(tlpos.x * 1.0 + time * 0.4) * 0.04;
      mediump float wz3 = cos(tlpos.z * 1.0 + time * 1.2) * 0.05;

@@ -7,6 +7,7 @@ The AziFy Shader Variant, called Truly Default, enhances the classic vanilla loo
 
 ![Screenshot](azifyss/ss1.jpg "v3.0")
 ![Screenshot](azifyss/ss2.jpg "v3.0")
+![Screenshot](azifyss/ss3.jpg "v3.0")
 
 &nbsp;
 &nbsp;

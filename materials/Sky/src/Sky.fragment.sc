@@ -16,13 +16,13 @@ void main() {
 #include <azify/utils/components.glsl> // Components Files
     //Opaque
    mediump vec3 basepos_1 = normalize(v_skypos);
-   lowp vec3 tmpvar_0;
+   lowp vec3 albedo;
    if (dev_UnWater) {
-      tmpvar_0 = UNDERWATER_COLOR;
+      albedo = UNDERWATER_COLOR;
   } else {
-      tmpvar_0 += dynamicSky(tmpvar_0.xyz, basepos_1);
+      albedo += dynamicSky(albedo.xyz, basepos_1);
   }
-    gl_FragColor = vec4(tmpvar_0,1.0);
+    gl_FragColor = vec4(albedo,1.0);
 #else
     //Fallback
     gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
