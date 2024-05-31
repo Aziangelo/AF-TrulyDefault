@@ -1,4 +1,4 @@
-$input v_color0, v_fog, v_light, v_texcoord0, v_wpos
+$input v_color0, v_fog, v_light, v_texcoord0, v_wpos, v_color1, v_color2, v_color3, v_color4, v_color5
 
 #include <bgfx_shader.sh>
 #include <MinecraftRenderer.Materials/ActorUtil.dragonh>
@@ -56,62 +56,22 @@ void main() {
 #include <azify/utils/components.glsl> // Components Files
 
     //albedo = applyActorDiffuse(albedo, v_color0.rgb, vec4(1.0), ColorBased.x, OverlayColor);
-    float isCaveX = smoothstep(0.65, 0.1, v_light.b);
-    float isTorch = smoothstep(0.5, 1.0, v_light.r);
-    isTorch =  (pow(isTorch, 6.)*0.5+isTorch*0.5);
 
     #ifdef ENABLE_LIGHTS    
-    if (dev_UnWater) {
-      albedo.rgb *= vec3(0.4, 0.5, 0.8);
-      
-    } else if (dev_Nether) {
-      mediump vec3 netherColor = vec3(0.38);
-      netherColor = mix(netherColor, vec3(1.0), isTorch);
-      albedo.rgb *= netherColor;
-     
-    } else if (dev_End) {
-      mediump vec3 endColor = vec3(0.5);
-      endColor = mix(endColor, vec3(1.0), isTorch);
-      albedo.rgb *= endColor;
-      
-    } else {
-      vec3 red = vec3(1.0,0.0, 0.0);
-      vec3 gren = vec3(0.0, 1.0, 0.0);
-      vec3 blue = vec3(0.0, 0.0, 1.0);
-      mediump vec3 worldColor = timecycle3(vec3(0.9, 0.94, 1.0), vec3(0.34,0.26,0.22), vec3(0.43,0.43,0.67));
-      worldColor = mix(worldColor, vec3(0.14,0.14,0.14), isCaveX);
-      worldColor = mix(worldColor, vec3(1.0), isTorch);
-      albedo.rgb *= worldColor;
-    }
+    albedo *= v_color1;
     #endif
 
 #if TRANSPARENT
     albedo = applyHudOpacity(albedo, HudOpacity.x);
 #endif
 
-  // CALCULATE POSITIONS
-  mediump vec3 skyPos = (v_wpos.xyz + vec3(0.0, 0.128, 0.0));
-  mediump vec3 nskyposP = normalize(skyPos);
-  mediump vec3 skyMIEP = dynamicSky(albedo.xyz, nskyposP);
-
   // THICK RAIN FOG
   #ifdef RAIN_THICK_FOG
-   if (AFrain > 0.5) {
-     lowp float fogDist = clamp(dot(v_wpos, v_wpos) * 0.0008, 0.0, 1.0);
-     albedo.rgb = mix(albedo.rgb, skyMIEP, fogDist);
-  }
+     albedo.rgb = mix(albedo.rgb, v_color2.rgb, v_color2.a);
   #endif
 
     // SKY BASED FOG
-  if (dev_UnWater) {
-    albedo.rgb = mix(albedo.rgb, UNDERWATER_COLOR, v_fog.a);
-  } else if (dev_Nether) {
-    albedo.rgb = mix(albedo.rgb, FogColor.rgb, v_fog.a);
-  } else if (dev_End) {
-    albedo.rgb = mix(albedo.rgb, FogColor.rgb, v_fog.a);
-  } else {
-    albedo.rgb = mix(albedo.rgb, skyMIEP, v_fog.a);
-  }
+    albedo.rgb = mix(albedo.rgb, v_fog.rgb, v_fog.a);
     gl_FragColor = albedo;
 #endif // DEPTH_ONLY
 }

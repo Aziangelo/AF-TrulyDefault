@@ -14,14 +14,13 @@ uniform vec4 ViewPositionAndTime;
 void main() {
 #if defined(OPAQUE)
 #include <azify/utils/components.glsl> // Components Files
-    //Opaque
-   mediump vec3 basepos_1 = normalize(v_skypos);
-   lowp vec3 albedo;
+   vec3 basepos_1 = normalize(v_skypos);
+   vec3 albedo;
    if (dev_UnWater) {
       albedo = UNDERWATER_COLOR;
-  } else {
+   } else {
       albedo += dynamicSky(albedo.xyz, basepos_1);
-  }
+   }
     gl_FragColor = vec4(albedo,1.0);
 #else
     //Fallback

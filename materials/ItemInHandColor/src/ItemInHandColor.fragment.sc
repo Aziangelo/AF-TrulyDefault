@@ -41,12 +41,12 @@ void main() {
       albedo.rgb *= vec3(0.4, 0.5, 0.8);
       
     } else if (dev_Nether) {
-      mediump vec3 netherColor = vec3(0.38);
+       vec3 netherColor = vec3(0.38);
       netherColor = mix(netherColor, vec3(1.0), isTorch);
       albedo.rgb *= netherColor;
      
     } else if (dev_End) {
-      mediump vec3 endColor = vec3(0.5);
+       vec3 endColor = vec3(0.5);
       endColor = mix(endColor, vec3(1.0), isTorch);
       albedo.rgb *= endColor;
       
@@ -54,7 +54,7 @@ void main() {
       vec3 red = vec3(1.0,0.0, 0.0);
       vec3 gren = vec3(0.0, 1.0, 0.0);
       vec3 blue = vec3(0.0, 0.0, 1.0);
-      mediump vec3 worldColor = timecycle3(vec3(0.9, 0.94, 1.0), vec3(0.34,0.26,0.22), vec3(0.43,0.43,0.67));
+       vec3 worldColor = timecycle3(vec3(0.9, 0.94, 1.0), vec3(0.34,0.26,0.22), vec3(0.43,0.43,0.67));
       worldColor = mix(worldColor, vec3(0.14,0.14,0.14), isCaveX);
       worldColor = mix(worldColor, vec3(1.0), isTorch);
       albedo.rgb *= worldColor;

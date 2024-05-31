@@ -14,7 +14,12 @@ vec4 i_data1 : TEXCOORD6;
 vec4 i_data2 : TEXCOORD5;
 
 vec4 v_color0 : COLOR0;
-vec4 v_fog : COLOR2;
-vec4 v_light : COLOR3;
+vec4 v_fog    : COLOR2;
+vec4 v_light  : COLOR3;
 centroid vec2 v_texcoord0 : TEXCOORD0;
-vec3 v_wpos : TEXCOORD3;
+vec3 v_wpos   : TEXCOORD3;
+vec4 v_color1 : COLOR1;
+vec4 v_color2 : COLOR2;
+vec4 v_color3 : COLOR3;
+vec4 v_color4 : COLOR4;
+vec4 v_color5 : COLOR5;

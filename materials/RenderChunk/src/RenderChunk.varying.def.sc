@@ -8,9 +8,22 @@ vec4 i_data1 : TEXCOORD6;
 vec4 i_data2 : TEXCOORD5;
 
 vec4          v_color0     : COLOR0;
+vec4          v_color1     : COLOR1; // START OF DIFFUSING
+vec4          v_color2     : COLOR2;
+vec4          v_color3     : COLOR3;
+vec4          v_color4     : COLOR4;
+vec4          v_color5     : COLOR5;
+vec4          v_color6     : COLOR6;
+vec4          v_color7     : COLOR7;
+vec4          v_color8     : COLOR8;
+vec4          v_color9     : COLOR9;
+vec4          v_color10    : COLOR10;
+vec4          v_color11    : COLOR11;
+vec4          v_color12    : COLOR12; // end
 vec4          v_fog        : COLOR2;
 centroid vec2 v_texcoord0  : TEXCOORD0;
 vec2          v_lightmapUV : TEXCOORD1;
-vec3 v_cpos : POSITION;
-vec3 v_wpos : TEXCOORD3;
-vec4 v_wDisplace : TEXCOORD4;
+vec3          v_cpos       : POSITION; // Chunk Pos
+vec3          v_wpos       : POSITION; // World Pos
+vec2         v_wDisp       : TEXCOORD2;
+float        v_waterFlag   : COLOR0;
