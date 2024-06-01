@@ -1,7 +1,7 @@
 #ifndef FUNCTIONS
  #define FUNCTIONS
 #include <azify/shader_inputs.glsl>
-
+/*
   // TIME AND WORLD DETECTIONS ========>>>>>>
  #define detect(a,b,x) clamp(((x)-(a))/((b)-(a)), 0.0, 1.0)
  #define disf ((FogAndDistanceControl.w-80.0)/112.0)
@@ -11,7 +11,7 @@
  #define AFdusk mix( detect( 1.0, 0.0, FogColor.b ), detect( 0.25, 0.15, FogColor.g ), AFrain )
  #define timecycle3( a, b, c ) mix(mix( a, b, AFdusk ), c, AFnight )
  // END OF TIME DETECTIONS =========>>>>>>>>
- 
+ */
  
  // DIMENSIONS DETECTIONS =====================>>>>
  bool detectUnderwater(vec3 FOG_COLOR, vec2 FOG_CONTROL) {
