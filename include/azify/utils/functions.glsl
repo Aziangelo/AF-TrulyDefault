@@ -46,7 +46,7 @@ float noise(vec2 x) {
      f = f*f*(3.0-2.0*f);
    return mix(mix( hash(n+  0.0), hash(n+  1.0),f.x), mix( hash(n+ 57.0), hash(n+ 58.0),f.x),f.y);
 }
-/*
+
 // Define custom fract function if it's not available
 vec2 customFract(vec2 x) {
     return x - floor(x);
@@ -56,7 +56,6 @@ float voronoi(vec2 pos, float time) {
     float tt = time * 0.85;
     mat2 m = mat2(7, -5, 5, 7) * 0.1;
     
-    // Replace fract with customFract
     return min(
         length(customFract(p + tt) - vec2(0.5)),
         length(customFract((p + vec2(0.5) - tt * 0.2) * m) - vec2(0.5))
