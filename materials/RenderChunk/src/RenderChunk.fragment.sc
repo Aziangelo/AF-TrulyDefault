@@ -7,10 +7,11 @@ uniform vec4 FogColor;
 uniform vec4 FogAndDistanceControl;
 uniform vec4 ViewPositionAndTime;
 
-SAMPLER2D(s_MatTexture, 0);
-SAMPLER2D(s_SeasonsTexture, 1);
-SAMPLER2D(s_LightMapTexture, 2);
-//#include <azify/utils/functions.glsl>
+SAMPLER2D_AUTOREG(s_MatTexture);
+SAMPLER2D_AUTOREG(s_SeasonsTexture);
+SAMPLER2D_AUTOREG(s_LightMapTexture);
+
+#include <azify/utils/functions.glsl>
 
 void main() {
      vec4 diffuse;
@@ -33,20 +34,18 @@ void main() {
     diffuse.rgb *= v_color0.aaa;
 #else
     // REMOVED AMBIENT OCCLUSION
- /*  vec3 ncol_0 = normalize(v_color0.rgb);
+   vec3 ncol_0 = normalize(v_color0.rgb);
         if(abs(ncol_0.r - ncol_0.g) > 0.001 || abs(ncol_0.g - ncol_0.b) > 0.001) {
         diffuse = vec4(diffuse.rgb * mix(ncol_0.rgb, v_color0.rgb, 0.45), v_color0.a);
-    }*/
-    
+    }
 #endif
 #endif /*End of DEPTH_ONLY_OPAQUE */
 
 #ifndef TRANSPARENT
     diffuse.a = 1.0;
 #endif
-//#include <azify/utils/components.glsl> // Components Files
+#include <azify/utils/components.glsl> // Components Files
   // DETERMINE WATER TEXTURE
-  /*
   bool waterFlag = v_color0.b > 0.3 && v_color0.a < 0.95;
  
   // CALCULATE POSITIONS & FUNCTIONS
@@ -100,7 +99,7 @@ void main() {
 
   // GROUND BLOOM WHEN DUSK
   #ifdef GROUND_BLOOM
-   // diffuse.rgb = mix(diffuse.rgb, v_color5.rgb, v_color5.a * max(0.0, normal.y));
+    diffuse.rgb = mix(diffuse.rgb, v_color5.rgb, v_color5.a * max(0.0, normal.y));
   #endif
 
   // SUN BLOOM WHEN DUSK
@@ -141,7 +140,7 @@ void main() {
   #ifdef RAIN_THICK_FOG
     diffuse.rgb = mix(diffuse.rgb, v_color10.rgb, v_color10.a);
   #endif
-*/
-    //diffuse.rgb = mix(diffuse.rgb, v_fog.rgb, v_fog.a);
+
+    diffuse.rgb = mix(diffuse.rgb, v_fog.rgb, v_fog.a);
     gl_FragColor = diffuse;
 }
