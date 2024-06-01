@@ -48,7 +48,7 @@ float noise(vec2 x) {
      f = f*f*(3.0-2.0*f);
    return mix(mix( hash(n+  0.0), hash(n+  1.0),f.x), mix( hash(n+ 57.0), hash(n+ 58.0),f.x),f.y);
 }
-
+/*
 float voronei( vec2 pos ) {
     vec2 p = vec2(pos);
     float tt = (ViewPositionAndTime.w * 0.85);
@@ -106,7 +106,7 @@ vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRai
     diff = color;
     return diff;
 }
-
+*/
 float sunDirShadow(vec4 color0, vec2 lightmapUV) {
      float shadow = smoothstep(0.885, 0.71, color0.y + 0.2 * (color0.y - color0.z));
     return mix(shadow, 0.0, pow(lightmapUV.x, 3.0));
