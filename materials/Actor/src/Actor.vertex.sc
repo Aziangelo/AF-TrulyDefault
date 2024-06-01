@@ -74,7 +74,7 @@ void main() {
     vec3 skyPos = (worldPosition.xyz + vec3(0.0, 0.128, 0.0));
     vec3 nskyposP = normalize(skyPos);
     vec3 fogMie;
-    vec3 skyMIEP = dynamicSky(FogColor.rgb, nskyposP);
+    vec3 skyMIEP = dynamicSky(FogColor.rgb, nskyposP,AFnight, AFdusk, AFrain);
     if (dev_UnWater) {
       fogMie = UNDERWATER_COLOR;
     } else if (dev_Nether || dev_End) {

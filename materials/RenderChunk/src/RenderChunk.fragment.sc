@@ -1,4 +1,4 @@
-$input v_color0, v_color1, v_color2, v_color3, v_color4, v_color5, v_color6, v_color7, v_color8, v_color9, v_color10, v_color11, v_color12, v_fog, v_texcoord0, v_lightmapUV, v_cpos, v_wpos, v_wDisp, v_waterFlag
+$input v_color0, v_color1, v_color2, v_color3, v_color4, v_color5, v_color6, v_color7, v_color8, v_color9, v_color10, v_color11, v_color12, v_fog, v_texcoord0, v_lightmapUV, v_cpos, v_wpos, v_wDisp
 
 #include <bgfx_shader.sh>
 
@@ -33,12 +33,9 @@ void main() {
     diffuse.rgb *= v_color0.aaa;
 #else
     // REMOVED AMBIENT OCCLUSION
-    vec3 ncol_0 = normalize(v_color0.rgb);
-    float diff_rg = abs(ncol_0.r - ncol_0.g);
-    float diff_gb = abs(ncol_0.g - ncol_0.b);
-    if (diff_rg > 0.001 || diff_gb > 0.001) {
-    vec3 mixedColor = mix(ncol_0.rgb, v_color0.rgb, 0.35);
-    diffuse = vec4(diffuse.rgb * mixedColor.rgb, v_color0.a);
+   vec3 ncol_0 = normalize(v_color0.rgb);
+        if(abs(ncol_0.r - ncol_0.g) > 0.001 || abs(ncol_0.g - ncol_0.b) > 0.001) {
+        diffuse = vec4(diffuse.rgb * mix(ncol_0.rgb, v_color0.rgb, 0.45), v_color0.a);
     }
 #endif
 #endif /*End of DEPTH_ONLY_OPAQUE */
@@ -47,13 +44,14 @@ void main() {
     diffuse.a = 1.0;
 #endif
 #include <azify/utils/components.glsl> // Components Files
+  // DETERMINE WATER TEXTURE
+  bool waterFlag = v_color0.b > 0.3 && v_color0.a < 0.95;
  
   // CALCULATE POSITIONS & FUNCTIONS
   vec3 dx = dFdx(v_cpos);
   vec3 dy = dFdy(v_cpos);
   vec3 dXY = cross(dx,dy);
   vec3 normal = normalize(dXY);
-  float isCaveX = smoothstep(1.0, 0.35, v_lightmapUV.y);
   
   // DIRECT LIGHT REPLICA
   #ifdef DIRLIGHT_BOTTOM
@@ -70,16 +68,15 @@ void main() {
   #ifdef ENABLE_LIGHTS
     diffuse.rgb *= v_color3.rgb;
   #endif
-
+  
   // WATER WAVES
-  #if defined(TRANSPARENT)
-    if (v_waterFlag > 0.5) {
-    float cmin = 0.23;    
-    float cmax = 1.0;
+  #if !defined(DEPTH_ONLY_OPAQUE) || defined(DEPTH_ONLY)
+  #ifdef TRANSPARENT
+  if (waterFlag) {
     float noiseScale = 24.0;
     float dispScale = 6.0;
 
-    float wdisp = clamp(sin(noise(v_wDisp)), cmin, cmax);
+    float wdisp = clamp(sin(noise(v_wDisp)), 0.23, 1.0);
     float noiseVal = noise(vec2(atan2(v_wpos.x, v_wpos.z) * noiseScale) - wdisp * dispScale);
     #ifdef SIMULATED_WATER
       diffuse.rgb = mix(v_color6.rgb, v_color7.rgb, noiseVal * v_color7.a);
@@ -95,23 +92,22 @@ void main() {
     diffuse = mix(diffuse, vec4(v_color8.rgb,0.9), rbf * v_color8.a);
     diffuse = mix(diffuse, vec4(v_color9.rgb,1.0), srf * v_color9.a);
     #endif
-    }
+  }
+  #endif
   #endif
 
   // GROUND BLOOM WHEN DUSK
   #ifdef GROUND_BLOOM
-  if (normal.y > 0.5) {
-    diffuse.rgb = mix(diffuse.rgb, v_color5.rgb, v_color5.a);
-  }
+    diffuse.rgb = mix(diffuse.rgb, v_color5.rgb, v_color5.a * max(0.0, normal.y));
   #endif
 
   // SUN BLOOM WHEN DUSK
   #ifdef SUN_BLOOM
     diffuse.rgb = mix(diffuse.rgb, v_color4.rgb, v_color4.a);
   #endif
-/*
+
   // WET EFFECT POS CALCULATION
-  #ifndef TRANSPARENT
+  #if defined(OPAQUE)
    float sunShadow = sunDirShadow(v_color0, v_lightmapUV);
    float dotn = dot(normal, normalize (-v_wpos));
    float nDot = clamp (smoothstep (0.8, 0.0, dotn), 0.0, 1.0);
@@ -119,19 +115,18 @@ void main() {
    float roughness = 0.85; 
    float noiseValue = noise(v_cpos.xz * 1.0);
    float roughnessFactor = (noiseValue * roughness);
-  #endif
 
   // GLOSSY WET EFFECT
   #ifdef GLOSSY_WET_EFFECT
-  #ifndef TRANSPARENT
+  if (dev_UnWater) {
+  } else {
     vec3 glosCol1 = timecycle3(vec3(0.7), vec3(0.65), vec3(0.45));
     diffuse = mix(diffuse, vec4(glosCol1, 1.0), nDot * mix(0.6, 0.35, AFnight) * clamp(max(0.0, normal.y), 0.0, 1.0) * roughnessFactor * (1.0- max(sunShadow, glCv)) * AFrain);
-  #endif
+  }
   #endif
 
   // TERRAIN REFLECTION REPLICA
   #ifdef RAIN_TERRAIN_REFLECTION
-  #ifndef TRANSPARENT
     float wetDisp = clamp(voronei((v_cpos.xz + v_cpos.y) * 0.8), 0.0, 1.0);
     vec2 wetNoisePos = vec2(atan2(v_wpos.x, v_wpos.z) * 13.0)- wetDisp * 2.5;
     float wetVal = noise(wetNoisePos);
@@ -139,7 +134,7 @@ void main() {
     diffuse.xyz = mix (diffuse.xyz, vec3(0.1), wetVal * clamp(max(0.0, normal.y), 0.0, 1.0) * wetfadeFact * roughnessFactor * AFrain * (1.0- max(sunShadow, glCv)));
   #endif
   #endif
-*/
+
   // THICK RAIN FOG
   #ifdef RAIN_THICK_FOG
     diffuse.rgb = mix(diffuse.rgb, v_color10.rgb, v_color10.a);

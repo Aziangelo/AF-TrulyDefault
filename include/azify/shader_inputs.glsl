@@ -11,10 +11,10 @@
 
 #define GLOSSY_WET_EFFECT           //  [ TOGGLE ]
 //#define RAIN_TERRAIN_REFLECTION     //  [ TOGGLE ]
-#define RAIN_THICK_FOG              //  [ TOGGLE ]
+//#define RAIN_THICK_FOG              //  [ TOGGLE ]
 
 #define SIMULATED_WATER             //  [ TOGGLE ]
-//#define WATER_SUNRAY                //  [ TOGGLE ]
+#define WATER_SUNRAY                //  [ TOGGLE ]
 
 #define SUN_BLOOM                   //  [ TOGGLE ]
 #define SUN_BLOOM_STRENGTH 3.5      // MORE HIGH MORE BRIGHT!

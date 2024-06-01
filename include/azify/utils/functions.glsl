@@ -5,10 +5,10 @@
   // TIME AND WORLD DETECTIONS ========>>>>>>
  #define detect(a,b,x) clamp(((x)-(a))/((b)-(a)), 0.0, 1.0)
  #define disf ((FogAndDistanceControl.w-80.0)/112.0)
-  float AFnether = detect( 0.24, 0.13 - ( 0.08 * disf ), FogAndDistanceControl.x );
-  float AFrain = smoothstep(0.66, 0.3, FogAndDistanceControl.x);
-  float AFnight = mix( detect( 0.65, 0.02, FogColor.r ), detect( 0.15, 0.01, FogColor.g ), AFrain );
-  float AFdusk = mix( detect( 1.0, 0.0, FogColor.b ), detect( 0.25, 0.15, FogColor.g ), AFrain );
+ #define AFnether detect( 0.24, 0.13 - ( 0.08 * disf ), FogAndDistanceControl.x )
+ #define AFrain smoothstep(0.66, 0.3, FogAndDistanceControl.x)
+ #define AFnight mix( detect( 0.65, 0.02, FogColor.r ), detect( 0.15, 0.01, FogColor.g ), AFrain )
+ #define AFdusk mix( detect( 1.0, 0.0, FogColor.b ), detect( 0.25, 0.15, FogColor.g ), AFrain )
  #define timecycle3( a, b, c ) mix(mix( a, b, AFdusk ), c, AFnight )
  #define timecycle4( a, b, c , d) mix(mix( mix( a, b, AFdusk ), c, AFnight ), d, AFrain)
  // END OF TIME DETECTIONS =========>>>>>>>>
@@ -58,7 +58,7 @@ float voronei( vec2 pos ) {
 }
 
 // SKY FUNCTION
-vec3 dynamicSky(vec3 diff, vec3 skyPos) {
+vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRain) {
     // Precomputed constant Colors
     const vec3 skyUpperColor = vec3(0.0, 0.2, 0.45);
     const vec3 skyDuskUpperColor = vec3(0.2, 0.11, 0.3);
@@ -93,11 +93,11 @@ vec3 dynamicSky(vec3 diff, vec3 skyPos) {
     float smoothing3 = clamp((costheta - (-0.15)) / (-0.65 - (-0.15)), 0.0, 1.0);
 
     // Calculate sky colors
-    vec3 skyCol_X = mix(mix(mix(skyUpperColor, skyDuskUpperColor, AFdusk), skyNightUpperColor, AFnight), mix(skyRainUpperColor, vec3(0.1), AFnight), AFrain);
-    vec3 skyCol_1 = mix(mix(mix(skyBaseColor, skyDuskBaseColor, AFdusk), skyNightBaseColor, AFnight), mix(skyRainBaseColor, vec3(0.25), AFnight), AFrain);
-    vec3 skyCol_2 = mix(mix(mix(fogColor, duskMiddleColor, AFdusk), nightMiddleColor, AFnight), mix(rainMiddleColor, vec3(0.3), AFnight), AFrain);
-    vec3 darkCol_1 = mix(mix(mix(upperBottomColor, duskUpperBottomColor, AFdusk), nightUpperBottomColor, AFnight), mix(rainUpperBottomColor, vec3(0.05), AFnight), AFrain);
-    vec3 darkCol_2 = mix(mix(mix(bottomColor, duskBottomColor, AFdusk), nightBottomColor, AFnight), mix(rainBottomColor, vec3(0.05), AFnight), AFrain);
+    vec3 skyCol_X = mix(mix(mix(skyUpperColor, skyDuskUpperColor, isDusk), skyNightUpperColor, isNight), mix(skyRainUpperColor, vec3(0.1), isNight), isRain);
+    vec3 skyCol_1 = mix(mix(mix(skyBaseColor, skyDuskBaseColor, isDusk), skyNightBaseColor, isNight), mix(skyRainBaseColor, vec3(0.25), isNight), isRain);
+    vec3 skyCol_2 = mix(mix(mix(fogColor, duskMiddleColor, isDusk), nightMiddleColor, isNight), mix(rainMiddleColor, vec3(0.3), isNight), isRain);
+    vec3 darkCol_1 = mix(mix(mix(upperBottomColor, duskUpperBottomColor, isDusk), nightUpperBottomColor, isNight), mix(rainUpperBottomColor, vec3(0.05), isNight), isRain);
+    vec3 darkCol_2 = mix(mix(mix(bottomColor, duskBottomColor, isDusk), nightBottomColor, isNight), mix(rainBottomColor, vec3(0.05), isNight), isRain);
 
     vec3 color = mix(skyCol_2, skyCol_1, smoothing1);
     color = mix(color, skyCol_X, smoothingX);

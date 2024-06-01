@@ -26,4 +26,3 @@ vec2          v_lightmapUV : TEXCOORD1;
 vec3          v_cpos       : POSITION; // Chunk Pos
 vec3          v_wpos       : POSITION; // World Pos
 vec2         v_wDisp       : TEXCOORD2;
-float        v_waterFlag   : COLOR0;

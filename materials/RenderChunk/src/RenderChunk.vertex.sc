@@ -2,7 +2,7 @@ $input a_color0, a_position, a_texcoord0, a_texcoord1
 #ifdef INSTANCING
     $input i_data0, i_data1, i_data2
 #endif
-$output v_color0, v_color1, v_color2, v_color3, v_color4, v_color5, v_color6, v_color7, v_color8, v_color9, v_color10, v_color11, v_color12, v_fog, v_texcoord0, v_lightmapUV, v_cpos, v_wpos, v_wDisp, v_waterFlag
+$output v_color0, v_color1, v_color2, v_color3, v_color4, v_color5, v_color6, v_color7, v_color8, v_color9, v_color10, v_color11, v_color12, v_fog, v_texcoord0, v_lightmapUV, v_cpos, v_wpos, v_wDisp
 
 #include <bgfx_shader.sh>
 
@@ -41,7 +41,7 @@ void main() {
     vec3 skyPos = (worldPos.xyz + vec3(0.0, 0.128, 0.0));
     vec3 nskyposP = normalize(skyPos);
     vec3 fogMie;
-    vec3 skyMIEP = dynamicSky(FogColor.rgb, nskyposP);
+    vec3 skyMIEP = dynamicSky(FogColor.rgb, nskyposP, AFnight, AFdusk, AFrain);
     if (dev_UnWater) {
       fogMie = UNDERWATER_COLOR;
     } else if (dev_Nether || dev_End) {
@@ -55,10 +55,6 @@ void main() {
 #ifdef TRANSPARENT
     if(a_color0.a < 0.95) {
         color.a = mix(a_color0.a, 1.0, clamp((camDis / FogAndDistanceControl.w), 0.0, 1.0));
-    };
-     // DETERMINE WATER TEXTURE
-    if (a_color0.r != a_color0.g || a_color0.g != a_color0.b || a_color0.r != a_color0.b) {
-          v_waterFlag = 1.0;
     };
 #endif
 
@@ -76,13 +72,11 @@ void main() {
 
   // SMOOTH AMBIENT OCCLUSION
   vec3 AOColor;
-  #ifndef ALPHA_TEST
    float minColor = min(a_color0.r, a_color0.b);
    float aoFactor = a_color0.g * 2.0 - minColor;
    float vanillaAO = 1.0 - aoFactor * 1.4;
    float fakeAO = clamp(1.0- vanillaAO * 0.5, 0.0, 1.0);
    AOColor.rgb = mix(vec3(1.0,1.0,1.0), vec3(0.1, 0.11, 0.15), 1.0-fakeAO);
-  #endif
   
   
   // WORLD COLORS
@@ -93,7 +87,6 @@ void main() {
     WorldColor = mix(WorldColor, timecycle3(vec3(0.45, 0.5, 0.6), vec3(0.2), vec3(0.2, 0.2, 0.3)), isCave * (1.0 - isCaveX));
     WorldColor = mix(WorldColor, vec3(1.0,1.0,1.0), isLight);
   #endif
-
 
   // TORCH LIGHTS
   vec3 TorchColor;
@@ -144,13 +137,11 @@ void main() {
 
   // WATER WAVES  =============>>>>>>>>
   vec3 nskyposN = normalize(-skyPos);
-  vec3 skyMIEX = dynamicSky(FogColor.rgb, nskyposN);
+  vec3 skyMIEX = dynamicSky(FogColor.rgb, nskyposN, AFnight, AFdusk, AFrain);
   vec4 waterOpa;
   vec4 waterSim;
   vec4 waterRy1;
   vec4 waterRy2;
-  #if defined(TRANSPARENT)
-    if (v_waterFlag > 0.5) {
     float wdisp = clamp(sin(noise(waterDisp)), 0.23, 1.0);
     waterOpa = vec4(skyMIEX, 1.0) * 0.3;
     
@@ -159,20 +150,18 @@ void main() {
     float noiseVal = noise(noisePos);
     float fadeFact = clamp(length(vec2(worldPos.xz * 0.3 / worldPos.y * 0.6)), 0.0, 1.0) * 0.8;
     
-    #ifdef SIMULATED_WATER // WATER SIMULATION ENABLE
+    //#ifdef SIMULATED_WATER // WATER SIMULATION ENABLE
     vec4 simCol = vec4(skyMIEX * mix(1.0, 2.5, AFrain * AFnight), 1.0);
     waterSim.rgb = simCol.rgb;
     waterSim.a = fadeFact;
-    #endif
+    //#endif
     
-    #ifdef WATER_SUNRAY // WATER SUN RAYS BLOOM
+    //#ifdef WATER_SUNRAY // WATER SUN RAYS BLOOM
     waterRy1.rgb = skyMIEP;
     waterRy1.a = a_texcoord1.y * (1.0 - AFnight) * (1.0 - AFrain) * (AFdusk);
     waterRy2.rgb = vec3(1.0, 0.7, 0.15) * 1.8;
     waterRy2.a = a_texcoord1.y * (1.0 - AFnight) * (1.0 - AFrain) * (AFdusk);
-    #endif
-    }
-  #endif
+    //#endif
 
   // THICK RAIN FOG
   vec4 rainTfog;
@@ -184,9 +173,9 @@ void main() {
 
   /*
   vec3 smUp = normalize(skyPos);
-  vec3 smiePlus = dynamicSky(FogColor.rgb, smUp);
+  vec3 smiePlus = dynamicSky(FogColor.rgb, smUp,AFnight, AFdusk, AFrain);
   vec3 smDn = normalize(-skyPos);
-  vec3 smieDown = dynamicSky(FogColor.rgb, smDn);
+  vec3 smieDown = dynamicSky(FogColor.rgb, smDn,AFnight, AFdusk, AFrain);
   */
 
   // CALCULATE FUNTCTIONS =============>>>>>>>>
@@ -226,8 +215,12 @@ void main() {
   }
   #endif
 
+  // DETERMINE WATER TEXTURE
+  bool waterFlag = a_color0.b > 0.3 && a_color0.a < 0.95;
   #ifdef WATER_WAVE
-  if (v_waterFlag > 0.5) {
+  #if !defined(DEPTH_ONLY_OPAQUE) || defined(DEPTH_ONLY)
+  #ifdef TRANSPARENT
+  if (waterFlag) {
     highp float wtime = ViewPositionAndTime.w * WATER_WAVE_SPEED;
     float timeFactor1 = wtime * 2.0;
     float timeFactor2 = wtime * 1.5;
@@ -242,7 +235,9 @@ void main() {
     gl_Position.y += sinZ_t1 + sinX_t2 + sinY_t4 * sinZ_0;
   }
   #endif
-
+  #endif
+  #endif
+  
 
   // WAVE MOVEMENTS - Licensed By: Azi Angelo
   #ifdef PLANTS_WAVE
