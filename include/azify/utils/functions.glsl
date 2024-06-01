@@ -23,13 +23,13 @@
     bool underLava = FOG_CONTROL.x == 0.0 && FOG_COLOR.b == 0.0 && FOG_COLOR.g < 0.18 && FOG_COLOR.r-FOG_COLOR.g > 0.1;
     return (netherFogCtrl && netherFogCol) || underLava;
   }
-  
+  /*
   bool detectEnd(vec3 fogColor, vec2 fogControl) {
     bool isColInRange = all(lessThanEqual(fogColor, vec3(0.05)));
     bool isColV = fogColor.r > fogColor.g && fogColor.b > fogColor.g;
     bool isFogV = fogControl.x >= 0.56 && fogControl.x <= 0.8 && fogControl.y >= 0.59;
     return isColInRange && isColV && isFogV;
-}
+}*/
 // END OF DIMENSIONS DETECTIONS ================>>>>>>>>>
  
 
@@ -67,7 +67,7 @@ vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRai
     vec3 skyNightBaseColor = vec3(0.1, 0.15, 0.3);
     vec3 skyRainBaseColor = vec3(0.8, 0.8, 0.8);
     
-    vec3 fogColor = vec3(fogcolor) + 0.14;
+    vec3 midfogColor = vec3(fogcolor) + 0.14;
     vec3 duskMiddleColor = vec3(1.0, 0.43, 0.23) + 0.16;
     vec3 nightMiddleColor = vec3(0.35, 0.6, 0.8) + 0.1;
     vec3 rainMiddleColor = vec3(0.43, 0.43, 0.43);
@@ -92,7 +92,7 @@ vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRai
     // Calculate sky colors
     vec3 skyCol_X = mix(mix(mix(skyUpperColor, skyDuskUpperColor, isDusk), skyNightUpperColor, isNight), mix(skyRainUpperColor, vec3(0.1), isNight), isRain);
     vec3 skyCol_1 = mix(mix(mix(skyBaseColor, skyDuskBaseColor, isDusk), skyNightBaseColor, isNight), mix(skyRainBaseColor, vec3(0.25), isNight), isRain);
-    vec3 skyCol_2 = mix(mix(mix(fogColor, duskMiddleColor, isDusk), nightMiddleColor, isNight), mix(rainMiddleColor, vec3(0.3), isNight), isRain);
+    vec3 skyCol_2 = mix(mix(mix(midfogColor, duskMiddleColor, isDusk), nightMiddleColor, isNight), mix(rainMiddleColor, vec3(0.3), isNight), isRain);
     vec3 darkCol_1 = mix(mix(mix(upperBottomColor, duskUpperBottomColor, isDusk), nightUpperBottomColor, isNight), mix(rainUpperBottomColor, vec3(0.05), isNight), isRain);
     vec3 darkCol_2 = mix(mix(mix(bottomColor, duskBottomColor, isDusk), nightBottomColor, isNight), mix(rainBottomColor, vec3(0.05), isNight), isRain);
 
