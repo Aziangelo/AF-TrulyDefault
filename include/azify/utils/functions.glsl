@@ -46,14 +46,20 @@ float noise(vec2 x) {
      f = f*f*(3.0-2.0*f);
    return mix(mix( hash(n+  0.0), hash(n+  1.0),f.x), mix( hash(n+ 57.0), hash(n+ 58.0),f.x),f.y);
 }
-/*
-float voronei( vec2 pos , float time) {
+
+vec2 fracter(vec2 x) {
+  return x - floor(x);
+}
+float voronoi(vec2 pos, float time) {
     vec2 p = vec2(pos);
     float tt = (time * 0.85);
     mat2 m = mat2(7, -5, 5, 7) * 0.1;
-    return min (length (fract (p + tt) - 0.5), length (fract ((p + 0.5 - tt * 0.2) * m) - 0.5));
+    return min(
+        length(fracter(p + tt) - 0.5),
+        length(fracter((p + 0.5 - tt * 0.2) * m) - 0.5)
+    );
 }
-*/
+/*
 // SKY FUNCTION
 vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRain, vec3 skycolor, vec3 fogcolor) {
     // Precomputed constant Colors
@@ -103,7 +109,7 @@ vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRai
 
     diff = color;
     return diff;
-}
+}*/
 
 float sunDirShadow(vec4 color0, vec2 lightmapUV) {
      float shadow = smoothstep(0.885, 0.71, color0.y + 0.2 * (color0.y - color0.z));
