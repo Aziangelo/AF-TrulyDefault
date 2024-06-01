@@ -46,7 +46,7 @@ float noise(vec2 x) {
      f = f*f*(3.0-2.0*f);
    return mix(mix( hash(n+  0.0), hash(n+  1.0),f.x), mix( hash(n+ 57.0), hash(n+ 58.0),f.x),f.y);
 }
-
+/*
 // Define custom fract function if it's not available
 vec2 customFract(vec2 x) {
     return x - floor(x);
