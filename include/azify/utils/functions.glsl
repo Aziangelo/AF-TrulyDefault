@@ -10,7 +10,6 @@
  #define AFnight mix( detect( 0.65, 0.02, FogColor.r ), detect( 0.15, 0.01, FogColor.g ), AFrain )
  #define AFdusk mix( detect( 1.0, 0.0, FogColor.b ), detect( 0.25, 0.15, FogColor.g ), AFrain )
  #define timecycle3( a, b, c ) mix(mix( a, b, AFdusk ), c, AFnight )
- #define timecycle4( a, b, c , d) mix(mix( mix( a, b, AFdusk ), c, AFnight ), d, AFrain)
  // END OF TIME DETECTIONS =========>>>>>>>>
  
  
