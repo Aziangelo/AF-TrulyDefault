@@ -33,10 +33,11 @@ void main() {
     diffuse.rgb *= v_color0.aaa;
 #else
     // REMOVED AMBIENT OCCLUSION
-   vec3 ncol_0 = normalize(v_color0.rgb);
+ /*  vec3 ncol_0 = normalize(v_color0.rgb);
         if(abs(ncol_0.r - ncol_0.g) > 0.001 || abs(ncol_0.g - ncol_0.b) > 0.001) {
         diffuse = vec4(diffuse.rgb * mix(ncol_0.rgb, v_color0.rgb, 0.45), v_color0.a);
-    }
+    }*/
+    
 #endif
 #endif /*End of DEPTH_ONLY_OPAQUE */
 

@@ -203,7 +203,7 @@ void main() {
 
   // WAVE EFFECTS STARTS HERE =============>>>>>>>>
   float htime = ViewPositionAndTime.w;
-  vec3 tlpos = vec3(mod (a_position, vec3(2.0, 2.0, 2.0)));
+  //vec3 tlpos = vec3(mod (a_position, vec3(2.0, 2.0, 2.0)));
 /*
   // CALVULATE HEAT WAVE - Licensed By: Azi Angelo
   #ifdef HEAT_WAVE
