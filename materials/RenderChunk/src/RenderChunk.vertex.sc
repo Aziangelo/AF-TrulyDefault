@@ -11,7 +11,7 @@ uniform vec4 FogAndDistanceControl;
 uniform vec4 ViewPositionAndTime;
 uniform vec4 SkyColor;
 uniform vec4 FogColor;
-#include <azify/utils/functions.glsl>
+//#include <azify/utils/functions.glsl>
 
 void main() {
     mat4 model;
@@ -20,7 +20,7 @@ void main() {
 #else
     model = u_model[0];
 #endif
-#include <azify/utils/components.glsl> // Components Files
+//#include <azify/utils/components.glsl> // Components Files
 
     vec3 worldPos = mul(model, vec4(a_position, 1.0)).xyz;
     vec4 color;
@@ -31,13 +31,14 @@ void main() {
     relativeDist += RenderChunkFogAlpha.x;
     vec4 fogColor;
     fogColor.rgb = FogColor.rgb;
-    float density = timecycle3(0.15, 5.5, 0.25);
-    float rrt = exp(-relativeDist*relativeDist*density);
+    //float density = timecycle3(0.15, 5.5, 0.25);
+    float rrt = exp(-relativeDist*relativeDist*0.13);
     float fog;
     fog = smoothstep(FogAndDistanceControl.x, FogAndDistanceControl.y, relativeDist);
     fog += (1.0-fog)*(0.5-0.5*rrt);
 
     // SKY BASED FOG
+    /*
     vec3 skyPos = (worldPos.xyz + vec3(0.0, 0.128, 0.0));
     vec3 nskyposP = normalize(skyPos);
     vec3 fogMie;
@@ -48,7 +49,7 @@ void main() {
       fogMie = FogColor.rgb;
     } else {
       fogMie = skyMIEP;
-    }
+    }*/
     fogColor.rgb = FogColor.rgb;
     fogColor.a = fog;
 

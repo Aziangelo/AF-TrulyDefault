@@ -10,7 +10,7 @@ uniform vec4 ViewPositionAndTime;
 SAMPLER2D(s_MatTexture, 0);
 SAMPLER2D(s_SeasonsTexture, 1);
 SAMPLER2D(s_LightMapTexture, 2);
-#include <azify/utils/functions.glsl>
+//#include <azify/utils/functions.glsl>
 
 void main() {
      vec4 diffuse;
@@ -43,7 +43,7 @@ void main() {
 #ifndef TRANSPARENT
     diffuse.a = 1.0;
 #endif
-#include <azify/utils/components.glsl> // Components Files
+//#include <azify/utils/components.glsl> // Components Files
   // DETERMINE WATER TEXTURE
   /*
   bool waterFlag = v_color0.b > 0.3 && v_color0.a < 0.95;
