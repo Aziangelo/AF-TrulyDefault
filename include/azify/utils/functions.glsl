@@ -1,6 +1,6 @@
 #ifndef FUNCTIONS
  #define FUNCTIONS
-#include <azify/shader_inputs.glsl>
+//#include <azify/shader_inputs.glsl>
 /*
   // TIME AND WORLD DETECTIONS ========>>>>>>
  #define detect(a,b,x) clamp(((x)-(a))/((b)-(a)), 0.0, 1.0)
@@ -11,7 +11,7 @@
  #define AFdusk mix( detect( 1.0, 0.0, FogColor.b ), detect( 0.25, 0.15, FogColor.g ), AFrain )
  #define timecycle3( a, b, c ) mix(mix( a, b, AFdusk ), c, AFnight )
  // END OF TIME DETECTIONS =========>>>>>>>>
- */
+ 
  
  // DIMENSIONS DETECTIONS =====================>>>>
  bool detectUnderwater(vec3 FOG_COLOR, vec2 FOG_CONTROL) {
@@ -25,7 +25,7 @@
     bool underLava = FOG_CONTROL.x == 0.0 && FOG_COLOR.b == 0.0 && FOG_COLOR.g < 0.18 && FOG_COLOR.r-FOG_COLOR.g > 0.1;
     return (netherFogCtrl && netherFogCol) || underLava;
   }
-  /*
+  
   bool detectEnd(vec3 fogColor, vec2 fogControl) {
     bool isColInRange = all(lessThanEqual(fogColor, vec3(0.05)));
     bool isColV = fogColor.r > fogColor.g && fogColor.b > fogColor.g;
