@@ -49,7 +49,7 @@ void main() {
     } else {
       fogMie = skyMIEP;
     }
-    fogColor.rgb = fogMie;
+    fogColor.rgb = FogColor.rgb;
     fogColor.a = fog;
 
 #ifdef TRANSPARENT
@@ -57,7 +57,7 @@ void main() {
         color.a = mix(a_color0.a, 1.0, clamp((camDis / FogAndDistanceControl.w), 0.0, 1.0));
     };
 #endif
-
+/*
   // MANIFIGULATOR (-_-?)
   float isCaveX = smoothstep(1.0, 0.35, a_texcoord1.y);
   float isCave = smoothstep(0.91, 0.77, a_texcoord1.y);
@@ -121,7 +121,7 @@ void main() {
   vec2 scaleF = vec2(1.0, 0.5); 
   float grblLen = length(posRatio * scaleF);
   float sunRayBloom = clamp(1.0 - grblLen, 0.0, 1.0);
-  float mixFactor = smoothstep(0.0, 1.0, sunRayBloom) * GROUND_BLOOM_STRENGTH /* rayGrPos */* (1.0-isCave) * (1.0 - AFnight) * (1.0 - AFrain) * AFdusk;
+  float mixFactor = smoothstep(0.0, 1.0, sunRayBloom) * GROUND_BLOOM_STRENGTH /* rayGrPos /* (1.0-isCave) * (1.0 - AFnight) * (1.0 - AFrain) * AFdusk;
   grblColor.rgb = skyMIEP;
   grblColor.a = mixFactor;
   #endif
@@ -185,6 +185,7 @@ void main() {
   v_fog = fogColor;
   v_cpos = a_position; // Start of Custom Vertex
   v_wpos = worldPos;
+  /*
   v_color1 = vec4(DirectLightColor,1.0);
   v_color2 = vec4(AOColor, 1.0);
   v_color3 = vec4(finalWColor,1.0);
@@ -194,7 +195,7 @@ void main() {
   v_color7 = waterSim;
   v_color8 = waterRy1;
   v_color9 = waterRy2;
-  v_color10 = rainTfog;
+  v_color10 = rainTfog;*/
   //v_color8 = vec4(smiePlus,1.0);
   //v_color9 = vec4(smieDown,1.0);
   gl_Position = mul(u_viewProj, vec4(worldPos, 1.0));
@@ -202,7 +203,7 @@ void main() {
   // WAVE EFFECTS STARTS HERE =============>>>>>>>>
   float htime = ViewPositionAndTime.w;
   vec3 tlpos = vec3(mod (a_position, vec3(2.0, 2.0, 2.0)));
-
+/*
   // CALVULATE HEAT WAVE - Licensed By: Azi Angelo
   #ifdef HEAT_WAVE
   if (dev_Nether) {
@@ -260,5 +261,5 @@ void main() {
     gl_Position.x += sinZ_t1 + sinX_t2 + cosZ_t3 + sinY_t4 * sinZ_0;
    }
   #endif
-  #endif
+  #endif*/
 }

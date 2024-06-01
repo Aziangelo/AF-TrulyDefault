@@ -45,6 +45,7 @@ void main() {
 #endif
 #include <azify/utils/components.glsl> // Components Files
   // DETERMINE WATER TEXTURE
+  /*
   bool waterFlag = v_color0.b > 0.3 && v_color0.a < 0.95;
  
   // CALCULATE POSITIONS & FUNCTIONS
@@ -139,7 +140,7 @@ void main() {
   #ifdef RAIN_THICK_FOG
     diffuse.rgb = mix(diffuse.rgb, v_color10.rgb, v_color10.a);
   #endif
-
+*/
     //diffuse.rgb = mix(diffuse.rgb, v_fog.rgb, v_fog.a);
     gl_FragColor = diffuse;
 }
