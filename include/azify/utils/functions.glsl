@@ -10,7 +10,7 @@
  //#define timecycle3( a, b, c ) mix(mix( a, b, AFdusk ), c, AFnight )
  // END OF TIME DETECTIONS =========>>>>>>>>
  
- /*
+ 
  // DIMENSIONS DETECTIONS =====================>>>>
  bool detectUnderwater(vec3 FOG_COLOR, vec2 FOG_CONTROL) {
     return (FOG_CONTROL.x==0.0 && FOG_CONTROL.y<0.8) && (FOG_COLOR.b>FOG_COLOR.r || FOG_COLOR.g>FOG_COLOR.r);
@@ -29,7 +29,7 @@
     bool isColV = fogColor.r > fogColor.g && fogColor.b > fogColor.g;
     bool isFogV = fogControl.x >= 0.56 && fogControl.x <= 0.8 && fogControl.y >= 0.59;
     return isColInRange && isColV && isFogV;
-}*/
+}
 // END OF DIMENSIONS DETECTIONS ================>>>>>>>>>
  
 
@@ -46,28 +46,28 @@ float noise(vec2 x) {
      f = f*f*(3.0-2.0*f);
    return mix(mix( hash(n+  0.0), hash(n+  1.0),f.x), mix( hash(n+ 57.0), hash(n+ 58.0),f.x),f.y);
 }
-/*
-float voronei( vec2 pos ) {
+
+float voronei( vec2 pos , float time) {
     vec2 p = vec2(pos);
-    float tt = (ViewPositionAndTime.w * 0.85);
+    float tt = (time * 0.85);
     mat2 m = mat2(7, -5, 5, 7) * 0.1;
     return min (length (fract (p + tt) - 0.5), length (fract ((p + 0.5 - tt * 0.2) * m) - 0.5));
 }
 
 // SKY FUNCTION
-vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRain) {
+vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRain, vec3 skycolor, vec3 fogcolor) {
     // Precomputed constant Colors
     vec3 skyUpperColor = vec3(0.0, 0.2, 0.45);
     vec3 skyDuskUpperColor = vec3(0.2, 0.11, 0.3);
     vec3 skyNightUpperColor = vec3(0.0, 0.0, 0.15);
     vec3 skyRainUpperColor = vec3(0.65, 0.65, 0.65);
     
-    vec3 skyBaseColor = vec3(SkyColor.xyz);
+    vec3 skyBaseColor = vec3(skycolor);
     vec3 skyDuskBaseColor = vec3(0.9, 0.8, 1.04);
     vec3 skyNightBaseColor = vec3(0.1, 0.15, 0.3);
     vec3 skyRainBaseColor = vec3(0.8, 0.8, 0.8);
     
-    vec3 fogColor = vec3(FogColor.xyz) + 0.14;
+    vec3 fogColor = vec3(fogcolor) + 0.14;
     vec3 duskMiddleColor = vec3(1.0, 0.43, 0.23) + 0.16;
     vec3 nightMiddleColor = vec3(0.35, 0.6, 0.8) + 0.1;
     vec3 rainMiddleColor = vec3(0.43, 0.43, 0.43);
@@ -104,7 +104,7 @@ vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRai
     diff = color;
     return diff;
 }
-*/
+
 float sunDirShadow(vec4 color0, vec2 lightmapUV) {
      float shadow = smoothstep(0.885, 0.71, color0.y + 0.2 * (color0.y - color0.z));
     return mix(shadow, 0.0, pow(lightmapUV.x, 3.0));
