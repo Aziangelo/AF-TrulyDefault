@@ -3,6 +3,9 @@ $input v_color0, v_fog, v_texcoord0, v_lightmapUV
 #include <bgfx_shader.sh>
 
 uniform vec4 FogColor;
+uniform vec4 SkyColor;
+uniform vec4 FogAndDistanceControl;
+uniform vec4 ViewPositionAndTime;
 
 SAMPLER2D_AUTOREG(s_MatTexture);
 SAMPLER2D_AUTOREG(s_SeasonsTexture);
