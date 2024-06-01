@@ -98,7 +98,7 @@ void main() {
 
   // GROUND BLOOM WHEN DUSK
   #ifdef GROUND_BLOOM
-    diffuse.rgb = mix(diffuse.rgb, v_color5.rgb, v_color5.a * max(0.0, normal.y));
+   // diffuse.rgb = mix(diffuse.rgb, v_color5.rgb, v_color5.a * max(0.0, normal.y));
   #endif
 
   // SUN BLOOM WHEN DUSK
@@ -140,6 +140,6 @@ void main() {
     diffuse.rgb = mix(diffuse.rgb, v_color10.rgb, v_color10.a);
   #endif
 
-    diffuse.rgb = mix(diffuse.rgb, v_fog.rgb, v_fog.a);
+    //diffuse.rgb = mix(diffuse.rgb, v_fog.rgb, v_fog.a);
     gl_FragColor = diffuse;
 }
