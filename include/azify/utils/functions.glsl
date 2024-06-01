@@ -1,18 +1,16 @@
 #ifndef FUNCTIONS
  #define FUNCTIONS
 //#include <azify/shader_inputs.glsl>
-/*
+
   // TIME AND WORLD DETECTIONS ========>>>>>>
  #define detect(a,b,x) clamp(((x)-(a))/((b)-(a)), 0.0, 1.0)
- #define disf ((FogAndDistanceControl.w-80.0)/112.0)
- #define AFnether detect( 0.24, 0.13 - ( 0.08 * disf ), FogAndDistanceControl.x )
- #define AFrain smoothstep(0.66, 0.3, FogAndDistanceControl.x)
- #define AFnight mix( detect( 0.65, 0.02, FogColor.r ), detect( 0.15, 0.01, FogColor.g ), AFrain )
- #define AFdusk mix( detect( 1.0, 0.0, FogColor.b ), detect( 0.25, 0.15, FogColor.g ), AFrain )
- #define timecycle3( a, b, c ) mix(mix( a, b, AFdusk ), c, AFnight )
+ #define AFrain(FND) smoothstep(0.66, 0.3, FND.x)
+ #define AFnight(FND,FGC) mix( detect( 0.65, 0.02, FGC.r ), detect( 0.15, 0.01, FGC.g ), AFrain(FND )
+ #define AFdusk(FND,FGC) mix( detect( 1.0, 0.0, FGC.b ), detect( 0.25, 0.15, FGC.g ), AFrain(FND))
+ //#define timecycle3( a, b, c ) mix(mix( a, b, AFdusk ), c, AFnight )
  // END OF TIME DETECTIONS =========>>>>>>>>
  
- 
+ /*
  // DIMENSIONS DETECTIONS =====================>>>>
  bool detectUnderwater(vec3 FOG_COLOR, vec2 FOG_CONTROL) {
     return (FOG_CONTROL.x==0.0 && FOG_CONTROL.y<0.8) && (FOG_COLOR.b>FOG_COLOR.r || FOG_COLOR.g>FOG_COLOR.r);
