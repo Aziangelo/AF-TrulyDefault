@@ -59,30 +59,30 @@ float voronei( vec2 pos ) {
 // SKY FUNCTION
 vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRain) {
     // Precomputed constant Colors
-    const vec3 skyUpperColor = vec3(0.0, 0.2, 0.45);
-    const vec3 skyDuskUpperColor = vec3(0.2, 0.11, 0.3);
-    const vec3 skyNightUpperColor = vec3(0.0, 0.0, 0.15);
-    const vec3 skyRainUpperColor = vec3(0.65, 0.65, 0.65);
+    vec3 skyUpperColor = vec3(0.0, 0.2, 0.45);
+    vec3 skyDuskUpperColor = vec3(0.2, 0.11, 0.3);
+    vec3 skyNightUpperColor = vec3(0.0, 0.0, 0.15);
+    vec3 skyRainUpperColor = vec3(0.65, 0.65, 0.65);
     
     vec3 skyBaseColor = vec3(SkyColor.xyz);
-    const vec3 skyDuskBaseColor = vec3(0.9, 0.8, 1.04);
-    const vec3 skyNightBaseColor = vec3(0.1, 0.15, 0.3);
-    const vec3 skyRainBaseColor = vec3(0.8, 0.8, 0.8);
+    vec3 skyDuskBaseColor = vec3(0.9, 0.8, 1.04);
+    vec3 skyNightBaseColor = vec3(0.1, 0.15, 0.3);
+    vec3 skyRainBaseColor = vec3(0.8, 0.8, 0.8);
     
     vec3 fogColor = vec3(FogColor.xyz) + 0.14;
-    const vec3 duskMiddleColor = vec3(1.0, 0.43, 0.23) + 0.16;
-    const vec3 nightMiddleColor = vec3(0.35, 0.6, 0.8) + 0.1;
-    const vec3 rainMiddleColor = vec3(0.43, 0.43, 0.43);
+    vec3 duskMiddleColor = vec3(1.0, 0.43, 0.23) + 0.16;
+    vec3 nightMiddleColor = vec3(0.35, 0.6, 0.8) + 0.1;
+    vec3 rainMiddleColor = vec3(0.43, 0.43, 0.43);
     
-    const vec3 upperBottomColor = vec3(0.45, 0.5, 0.7);
-    const vec3 duskUpperBottomColor = vec3(0.98, 0.4, 0.28);
-    const vec3 nightUpperBottomColor = vec3(0.0, 0.1, 0.3);
-    const vec3 rainUpperBottomColor = vec3(0.43, 0.43, 0.43);
+    vec3 upperBottomColor = vec3(0.45, 0.5, 0.7);
+    vec3 duskUpperBottomColor = vec3(0.98, 0.4, 0.28);
+    vec3 nightUpperBottomColor = vec3(0.0, 0.1, 0.3);
+    vec3 rainUpperBottomColor = vec3(0.43, 0.43, 0.43);
     
-    const vec3 bottomColor = vec3(0.4, 0.5, 0.7);
-    const vec3 duskBottomColor = vec3(0.76, 0.3, 0.2);
-    const vec3 nightBottomColor = vec3(0.0, 0.0, 0.1);
-    const vec3 rainBottomColor = vec3(0.43, 0.43, 0.43);
+    vec3 bottomColor = vec3(0.4, 0.5, 0.7);
+    vec3 duskBottomColor = vec3(0.76, 0.3, 0.2);
+    vec3 nightBottomColor = vec3(0.0, 0.0, 0.1);
+    vec3 rainBottomColor = vec3(0.43, 0.43, 0.43);
 
     // Calculate sky positions
     float costheta = dot(skyPos, vec3(0.0, 1.6, 0.0));

@@ -33,7 +33,8 @@
 #define WATER_WAVE_SPEED 1.0        // MORE HIGH MORE SPEED!
 
 // COLORS SETTING ======================>>>>>>>>>>>>
+/*
 const vec3 torchColor = vec3(1.0, 0.74, 0.33);       // OVERALL COLOR
 const vec3 UNDERWATER_COLOR = vec3(0.25, 0.5, 0.7);
-
+*/
 #endif
