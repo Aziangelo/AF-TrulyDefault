@@ -185,7 +185,7 @@ void main() {
     v_color8 = waterRy2;
     v_color9 = rainTfog;
     gl_Position = mul(u_viewProj, vec4(worldPos, 1.0));
-/*
+
   // WAVE EFFECTS STARTS HERE =============>>>>>>>>
   float htime = ViewPositionAndTime.w;
   vec3 tlpos = vec3(mod (a_position, vec3(2.0, 2.0, 2.0)));
@@ -245,5 +245,5 @@ void main() {
     gl_Position.x += sinZ_t1 + sinX_t2 + cosZ_t3 + sinY_t4 * sinZ_0;
    }
   #endif
-  #endif*/
+  #endif
 }
