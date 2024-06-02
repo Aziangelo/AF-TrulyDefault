@@ -46,7 +46,7 @@ float noise(vec2 x) {
 vec2 rand2( vec2 p)	{
   return fract(vec2(sin(p.x * 591.32 + p.y * 154.077), cos(p.x * 391.32 + p.y * 49.077)));
 }
-float voronoi(vec2 x, float time){
+float voronoi(vec2 x){
 		vec2 p = floor(x);
 		vec2 f = fract(x);
 		float res=8.0;

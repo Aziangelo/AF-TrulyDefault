@@ -131,7 +131,7 @@ void main() {
 
   // TERRAIN REFLECTION REPLICA
   #ifdef RAIN_TERRAIN_REFLECTION
-    float wetDisp = clamp(voronei((v_cpos.xz + v_cpos.y) * 0.8), 0.0, 1.0);
+    float wetDisp = clamp(voronoi((v_cpos.xz + v_cpos.y) * 0.8), 0.0, 1.0);
     vec2 wetNoisePos = vec2(atan2(v_wpos.x, v_wpos.z) * 13.0, atan2(v_wpos.x, v_wpos.z) * 13.0)- wetDisp * 2.5;
     float wetVal = noise(wetNoisePos);
     float wetfadeFact = clamp(length(vec2(v_wpos.xz * 0.3 / v_wpos.y * 0.5)), 0.0, 1.0);
