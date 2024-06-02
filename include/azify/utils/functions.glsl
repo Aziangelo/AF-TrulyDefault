@@ -42,17 +42,18 @@ float noise(vec2 x) {
 }
 
 // Define custom fract function if it's not available
-/*
+
 vec2 customFract(vec2 x) {
     return x - floor(x);
 }
 float voronoi(vec2 pos, float time) {
     vec2 p = vec2(pos);
-    float tt = time * 0.85;
-    mat2 m = mat2(7, -5, 5, 7) * 0.1;
-    
-    return min(length(fract(p + tt) - vec2(0.5,0.5)),length(fract((p + vec2(0.5,0.5) - tt * 0.2) * m) - vec2(0.5,0.5)));
-}*/
+    //float tt = time * 0.85;
+    //mat2 m = mat2(7, -5, 5, 7) * 0.1;
+    float final;
+    //final = min(length(fract(p + tt) - vec2(0.5,0.5)),length(fract((p + vec2(0.5,0.5) - tt * 0.2) * m) - vec2(0.5,0.5)));
+    return final;
+}
 
 // SKY FUNCTION
 vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRain, vec3 skycolor, vec3 fogcolor) {
