@@ -52,7 +52,7 @@ vec2 customFract(vec2 x) {
     return x - floor(x);
 }
 float voronoi(vec2 pos, float time) {
-    vec2 p = pos;
+    vec2 p = vec2(pos);
     float tt = time * 0.85;
     mat2 m = mat2(7, -5, 5, 7) * 0.1;
     
@@ -70,7 +70,7 @@ vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRai
     vec3 skyNightUpperColor = vec3(0.0, 0.0, 0.15);
     vec3 skyRainUpperColor = vec3(0.65, 0.65, 0.65);
     
-    vec3 skyBaseColor = vec3(skycolor);
+    vec3 skyBaseColor = skycolor;
     vec3 skyDuskBaseColor = vec3(0.9, 0.8, 1.04);
     vec3 skyNightBaseColor = vec3(0.1, 0.15, 0.3);
     vec3 skyRainBaseColor = vec3(0.8, 0.8, 0.8);
