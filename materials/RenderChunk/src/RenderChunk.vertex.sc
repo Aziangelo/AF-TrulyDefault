@@ -171,7 +171,7 @@ void main() {
 
     v_texcoord0 = a_texcoord0;
     v_lightmapUV = a_texcoord1;
-    v_color0 = color;
+    v_color0 = a_color0;
     v_fog = fogColor;
     v_cpos = a_position;
     v_wpos = worldPos;
