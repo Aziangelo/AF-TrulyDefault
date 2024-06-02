@@ -25,10 +25,7 @@
   }
   
   bool detectEnd(vec3 fogColor, vec2 fogControl) {
-    bool isColInRange = all(lessThanEqual(fogColor, vec3(0.05)));
-    bool isColV = fogColor.r > fogColor.g && fogColor.b > fogColor.g;
-    bool isFogV = fogControl.x >= 0.56 && fogControl.x <= 0.8 && fogControl.y >= 0.59;
-    return isColInRange && isColV && isFogV;
+    return fogColor.r>fogColor.g&&fogColor.b>fogColor.g&&fogColor.r<=0.05&&fogColor.g<=0.05&&fogColor.b<=0.05&&fogControl.x>=0.56&&fogControl.x<=0.8&&fogControl.y>=0.59;
 }
 // END OF DIMENSIONS DETECTIONS ================>>>>>>>>>
  
