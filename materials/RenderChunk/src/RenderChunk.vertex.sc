@@ -127,7 +127,49 @@ void main() {
   #endif
 
 
+  // CALCULATE NOISE  =============>>>>>>>>
+  float wpx = a_position.s * 6.0;
+  float wpy = a_position.t * 0.5;
+  float wpz = a_position.p * 1.0;
+  vec2 waterDisp = vec2(wpz + ViewPositionAndTime.w* 0.03, wpx + ViewPositionAndTime.w* 1.45 + wpz + wpy);
+  v_wDisp = waterDisp;
 
+
+  // WATER WAVES  =============>>>>>>>>
+  vec3 nskyposN = normalize(-skyPos);
+  vec3 skyMIEX = dynamicSky(FogColor.rgb, nskyposN, AFnight, AFdusk, AFrain);
+  vec4 waterOpa;
+  vec4 waterSim;
+  vec4 waterRy1;
+  vec4 waterRy2;
+    float wdisp = clamp(sin(noise(waterDisp)), 0.23, 1.0);
+    waterOpa = vec4(skyMIEX, 1.0) * 0.3;
+    
+    vec2 at2 = vec2(atan2(worldPos.x, worldPos.z) * 24.0);
+    vec2 noisePos = at2 - wdisp * 6.0;
+    float noiseVal = noise(noisePos);
+    float fadeFact = clamp(length(vec2(worldPos.xz * 0.3 / worldPos.y * 0.6)), 0.0, 1.0) * 0.8;
+    
+    //#ifdef SIMULATED_WATER // WATER SIMULATION ENABLE
+    vec4 simCol = vec4(skyMIEX * mix(1.0, 2.5, AFrain * AFnight), 1.0);
+    waterSim.rgb = simCol.rgb;
+    waterSim.a = fadeFact;
+    //#endif
+    
+    //#ifdef WATER_SUNRAY // WATER SUN RAYS BLOOM
+    waterRy1.rgb = skyMIEP;
+    waterRy1.a = a_texcoord1.y * (1.0 - AFnight) * (1.0 - AFrain) * (AFdusk);
+    waterRy2.rgb = vec3(1.0, 0.7, 0.15) * 1.8;
+    waterRy2.a = a_texcoord1.y * (1.0 - AFnight) * (1.0 - AFrain) * (AFdusk);
+    //#endif
+
+  // THICK RAIN FOG
+  vec4 rainTfog;
+  #ifdef RAIN_THICK_FOG
+    float fogDist = clamp(dot(worldPos, worldPos) * 0.0008, 0.0, 1.0);
+    rainTfog.rgb = skyMIEP;
+    rainTfog.a = 0.85 * fogDist * AFrain;
+  #endif
 
 
     v_texcoord0 = a_texcoord0;
