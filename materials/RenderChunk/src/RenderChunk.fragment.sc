@@ -51,6 +51,6 @@ void main() {
   vec3 dXY = cross(dx,dy);
   vec3 normal = normalize(dXY);
 
-    diffuse.rgb = mix(diffuse.rgb, FogColor.rgb, v_fog.a);
+    diffuse.rgb = mix(diffuse.rgb, v_fog.rgb, v_fog.a);
     gl_FragColor = diffuse;
 }
