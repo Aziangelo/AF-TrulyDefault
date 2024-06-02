@@ -76,7 +76,7 @@ void main() {
     diffuse.rgb = mix(diffuse.rgb, v_color3.rgb, v_color3.a);
   #endif
 
-/*
+
   // WATER WAVES
   #if !defined(DEPTH_ONLY_OPAQUE) || defined(DEPTH_ONLY)
   #ifdef TRANSPARENT
@@ -87,7 +87,7 @@ void main() {
     float wpx = v_cpos.x * 6.0;
     float wpy = v_cpos.y * 0.5;
     float wpz = v_cpos.z * 1.0;
-    vec2 waterDisp = vec2(wpz + ViewPositionAndTime.w* 0.03, wpx + ViewPositionAndTime.w* 1.45 + wpz + wpy);
+    vec2 waterDisp = vec2(wpz + ViewPositionAndTime.w* 0.03, wpx + ViewPositionAndTime.w* 1.45 + wpz + wpy);/*
     float wdisp = clamp(sin(noise(waterDisp)), 0.23, 1.0);
     float noiseVal = noise(vec2(atan2(v_wpos.x, v_wpos.z) * noiseScale) - wdisp * dispScale);
     #ifdef SIMULATED_WATER
@@ -103,11 +103,11 @@ void main() {
     float srf = smoothstep(0.0, 0.75, sunRayFactor);
     diffuse = mix(diffuse, vec4(v_color7.rgb,0.9), rbf * v_color7.a);
     diffuse = mix(diffuse, vec4(v_color8.rgb,1.0), srf * v_color8.a);
-    #endif
+    #endif*/
   }
   #endif
   #endif
-*/
+
 
   // WET EFFECT POS CALCULATION
   #if defined(OPAQUE)
