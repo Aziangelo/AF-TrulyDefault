@@ -19,6 +19,7 @@ void main() {
 #else
     model = u_model[0];
 #endif
+#include <azify/utils/components.glsl> // Components Files
 
     vec3 worldPos = mul(model, vec4(a_position, 1.0)).xyz;
     vec4 color;
