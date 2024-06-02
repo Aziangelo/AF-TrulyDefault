@@ -179,5 +179,10 @@ void main() {
     v_color2 = finalWColor;
     v_color3 = sunblPos;
     v_color4 = grblColor;
+    v_color5 = waterOpa;
+    v_color6 = waterSim;
+    v_color7 = waterRy1;
+    v_color8 = waterRy2;
+    v_color9 = rainTfog;
     gl_Position = mul(u_viewProj, vec4(worldPos, 1.0));
 }

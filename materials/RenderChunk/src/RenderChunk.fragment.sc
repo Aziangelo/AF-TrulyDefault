@@ -77,6 +77,72 @@ void main() {
   #endif
 
 
+  // WATER WAVES
+  #if !defined(DEPTH_ONLY_OPAQUE) || defined(DEPTH_ONLY)
+  #ifdef TRANSPARENT
+  if (waterFlag) {
+    float noiseScale = 24.0;
+    float dispScale = 6.0;
+
+    float wpx = v_cpos.x * 6.0;
+    float wpy = v_cpos.y * 0.5;
+    float wpz = v_cpos.z * 1.0;
+    vec2 waterDisp = vec2(wpz + ViewPositionAndTime.w* 0.03, wpx + ViewPositionAndTime.w* 1.45 + wpz + wpy);
+    float wdisp = clamp(sin(noise(waterDisp)), 0.23, 1.0);
+    float noiseVal = noise(vec2(atan2(v_wpos.x, v_wpos.z) * noiseScale) - wdisp * dispScale);
+    #ifdef SIMULATED_WATER
+      diffuse.rgb = mix(v_color5.rgb, v_color6.rgb, noiseVal * v_color6.a);
+    #endif
+    #ifdef WATER_SUNRAY // WATER SUN RAYS BLOOM
+    float slent = length(v_wpos.zy / v_wpos.x * 12.0 * vec2(0.4, 0.1));
+    float sunRayFactor = clamp(1.0 - slent - wdisp * 1.5, 0.0, 1.0);
+    float rlent = length(v_wpos.zy / v_wpos.x * 7.8 * vec2(0.2, 0.1));
+    float rayBlendFactor = clamp(1.0 - rlent - wdisp * 0.3, 0.0, 1.0);
+    
+    float rbf = smoothstep(0.0, 1.0, rayBlendFactor);
+    float srf = smoothstep(0.0, 0.75, sunRayFactor);
+    diffuse = mix(diffuse, vec4(v_color7.rgb,0.9), rbf * v_color7.a);
+    diffuse = mix(diffuse, vec4(v_color8.rgb,1.0), srf * v_color8.a);
+    #endif
+  }
+  #endif
+  #endif
+
+
+  // WET EFFECT POS CALCULATION
+  #if defined(OPAQUE)
+   float sunShadow = sunDirShadow(v_color0, v_lightmapUV);
+   float dotn = dot(normal, normalize (-v_wpos));
+   float nDot = clamp (smoothstep (0.8, 0.0, dotn), 0.0, 1.0);
+   float glCv = smoothstep (0.89, 0.75, v_lightmapUV.y);
+   float roughness = 0.85; 
+   float noiseValue = noise(v_cpos.xz * 1.0);
+   float roughnessFactor = (noiseValue * roughness);
+
+  // GLOSSY WET EFFECT
+  #ifdef GLOSSY_WET_EFFECT
+  if (dev_UnWater) {
+  } else {
+    vec3 glosCol1 = mix(mix(vec3(0.7), vec3(0.65), AFdusk), vec3(0.45), AFnight);
+    diffuse = mix(diffuse, vec4(glosCol1, 1.0), nDot * mix(0.6, 0.35, AFnight) * clamp(max(0.0, normal.y), 0.0, 1.0) * roughnessFactor * (1.0- max(sunShadow, glCv)) * AFrain);
+  }
+  #endif
+
+  // TERRAIN REFLECTION REPLICA
+  #ifdef RAIN_TERRAIN_REFLECTION
+    float wetDisp = clamp(voronei((v_cpos.xz + v_cpos.y) * 0.8), 0.0, 1.0);
+    vec2 wetNoisePos = vec2(atan2(v_wpos.x, v_wpos.z) * 13.0)- wetDisp * 2.5;
+    float wetVal = noise(wetNoisePos);
+    float wetfadeFact = clamp(length(vec2(v_wpos.xz * 0.3 / v_wpos.y * 0.5)), 0.0, 1.0);
+    diffuse.xyz = mix (diffuse.xyz, vec3(0.1), wetVal * clamp(max(0.0, normal.y), 0.0, 1.0) * wetfadeFact * roughnessFactor * AFrain * (1.0- max(sunShadow, glCv)));
+  #endif
+  #endif
+
+  // THICK RAIN FOG
+  #ifdef RAIN_THICK_FOG
+    diffuse.rgb = mix(diffuse.rgb, v_color9.rgb, v_color9.a);
+  #endif
+
     diffuse.rgb = mix(diffuse.rgb, v_fog.rgb, v_fog.a);
     gl_FragColor = diffuse;
 }
