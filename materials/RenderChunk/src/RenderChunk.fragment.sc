@@ -63,9 +63,18 @@ void main() {
 
   // WORLD COLORS
   #ifdef ENABLE_LIGHTS
-    diffuse.rgb *= v_color3.rgb;
+    diffuse.rgb *= v_color2.rgb;
+  #endif
+  
+  // GROUND BLOOM WHEN DUSK
+  #ifdef GROUND_BLOOM
+    diffuse.rgb = mix(diffuse.rgb, v_color4.rgb, v_color4.a * max(0.0, normal.y));
   #endif
 
+  // SUN BLOOM WHEN DUSK
+  #ifdef SUN_BLOOM
+    diffuse.rgb = mix(diffuse.rgb, v_color3.rgb, v_color3.a);
+  #endif
 
 
     diffuse.rgb = mix(diffuse.rgb, v_fog.rgb, v_fog.a);

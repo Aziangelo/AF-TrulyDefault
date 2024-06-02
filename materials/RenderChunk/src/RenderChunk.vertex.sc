@@ -99,8 +99,36 @@ void main() {
     TorchColor = vec3(torchColor) * smotherLight;
   #endif
   vec4 finalWColor;
-  //finalWColor = AOColor;
   finalWColor = vec4(AOColor.rgb * WorldColor + TorchColor,1.0);
+
+
+  // SUN BLOOM WHEN DUSK
+  vec4 sunblPos;
+  #ifdef SUN_BLOOM
+  float sunlength = length(worldPos.zy / worldPos.x * 4.5);
+  float sunBloom = clamp(1.0 - sunlength, 0.0, 1.0);
+  float bloomFactor = smoothstep(0.0, 1.0, sunBloom) * SUN_BLOOM_STRENGTH * (1.0-AFnight) * (1.0-AFrain) * (AFdusk * a_texcoord1.y)  * fogColor.a;
+  vec4 bloomColor = vec4(1.0, 0.7, 0.1, 1.0);
+  sunblPos.rgb = bloomColor.rgb;
+  sunblPos.a = bloomFactor;
+  #endif
+
+
+  // GROUND BLOOM WHEN DUSK
+  vec4 grblColor;
+  #ifdef GROUND_BLOOM
+  vec2 posRatio = worldPos.zy / worldPos.x;
+  vec2 scaleF = vec2(1.0, 0.5); 
+  float grblLen = length(posRatio * scaleF);
+  float sunRayBloom = clamp(1.0 - grblLen, 0.0, 1.0);
+  float mixFactor = smoothstep(0.0, 1.0, sunRayBloom) * GROUND_BLOOM_STRENGTH /* rayGrPos */* (1.0-isCave) * (1.0 - AFnight) * (1.0 - AFrain) * AFdusk;
+  grblColor.rgb = skyMIEP;
+  grblColor.a = mixFactor;
+  #endif
+
+
+
+
 
     v_texcoord0 = a_texcoord0;
     v_lightmapUV = a_texcoord1;
@@ -109,7 +137,8 @@ void main() {
     v_cpos = a_position;
     v_wpos = worldPos;
     v_color1 = DirectLightColor;
-    v_color2 = AOColor;
-    v_color3 = finalWColor;
+    v_color2 = finalWColor;
+    v_color3 = sunblPos;
+    v_color4 = grblColor;
     gl_Position = mul(u_viewProj, vec4(worldPos, 1.0));
 }
