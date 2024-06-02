@@ -128,12 +128,12 @@ void main() {
 
 
   // CALCULATE NOISE  =============>>>>>>>>
-  float wpx = a_position.s * 6.0;
-  float wpy = a_position.t * 0.5;
-  float wpz = a_position.p * 1.0;
+  float wpx = a_position.x * 6.0;
+  float wpy = a_position.y * 0.5;
+  float wpz = a_position.z * 1.0;
   vec2 waterDisp = vec2(wpz + ViewPositionAndTime.w* 0.03, wpx + ViewPositionAndTime.w* 1.45 + wpz + wpy);
 
-
+/*
   // WATER WAVES  =============>>>>>>>>
   vec3 nskyposN = normalize(-skyPos);
   vec3 skyMIEX = dynamicSky(FogColor.rgb, nskyposN, AFnight, AFdusk, AFrain, SkyColor.rgb, FogColor.rgb);
@@ -169,7 +169,7 @@ void main() {
     rainTfog.rgb = skyMIEP;
     rainTfog.a = 0.85 * fogDist * AFrain;
   #endif
-
+*/
 
     v_texcoord0 = a_texcoord0;
     v_lightmapUV = a_texcoord1;
