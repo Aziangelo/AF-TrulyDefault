@@ -89,10 +89,10 @@ void main() {
     float wpz = v_cpos.z * 1.0;
     vec2 waterDisp = vec2(wpz + ViewPositionAndTime.w* 0.03, wpx + ViewPositionAndTime.w* 1.45 + wpz + wpy);
     float wdisp = clamp(sin(noise(waterDisp)), 0.23, 1.0);
-    float noiseVal = noise(vec2(atan2(v_wpos.x, v_wpos.z) * noiseScale, atan2(v_wpos.x, v_wpos.z) * noiseScale) - wdisp * dispScale);/*
+    float noiseVal = noise(vec2(atan2(v_wpos.x, v_wpos.z) * noiseScale, atan2(v_wpos.x, v_wpos.z) * noiseScale) - wdisp * dispScale);
     #ifdef SIMULATED_WATER
       diffuse.rgb = mix(v_color5.rgb, v_color6.rgb, noiseVal * v_color6.a);
-    #endif
+    #endif/*
     #ifdef WATER_SUNRAY // WATER SUN RAYS BLOOM
     float slent = length(v_wpos.zy / v_wpos.x * 12.0 * vec2(0.4, 0.1));
     float sunRayFactor = clamp(1.0 - slent - wdisp * 1.5, 0.0, 1.0);
