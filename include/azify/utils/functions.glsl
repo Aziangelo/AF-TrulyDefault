@@ -23,13 +23,13 @@
     bool underLava = FOG_CONTROL.x == 0.0 && FOG_COLOR.b == 0.0 && FOG_COLOR.g < 0.18 && FOG_COLOR.r-FOG_COLOR.g > 0.1;
     return (netherFogCtrl && netherFogCol) || underLava;
   }
-  /*
+  
   bool detectEnd(vec3 fogColor, vec2 fogControl) {
     bool isColInRange = all(lessThanEqual(fogColor, vec3(0.05)));
     bool isColV = fogColor.r > fogColor.g && fogColor.b > fogColor.g;
     bool isFogV = fogControl.x >= 0.56 && fogControl.x <= 0.8 && fogControl.y >= 0.59;
     return isColInRange && isColV && isFogV;
-}*/
+}
 // END OF DIMENSIONS DETECTIONS ================>>>>>>>>>
  
 
