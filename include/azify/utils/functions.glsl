@@ -99,25 +99,20 @@ vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRai
     float smoothing3 = clamp((costheta - (-0.15)) / (-0.65 - (-0.15)), 0.0, 1.0);
 
     // Calculate sky colors
-    /*
-    vec3 skrin1 = mix(skyRainUpperColor, vec3(0.15,0.15,0.15), isNight);
     vec3 skyCol_X = mix(skyUpperColor, skyDuskUpperColor, isDusk);
     skyCol_X = mix(skyCol_X, skyNightUpperColor, isNight);
-    
-    skyCol_X = mix(skyCol_X, skrin1, isRain);*/
-    vec3 skyCol_X = mix(mix(mix(skyUpperColor, skyDuskUpperColor, isDusk), skyNightUpperColor, isNight), mix(skyRainUpperColor, vec3(0.15,0.15,0.15), isNight), isRain);
-    /*
-    vec3 skyCol_1 = mix(mix(mix(skyBaseColor, skyDuskBaseColor, isDusk), skyNightBaseColor, isNight), mix(skyRainBaseColor, vec3(0.25), isNight), isRain);
-    vec3 skyCol_2 = mix(mix(mix(midfogColor, duskMiddleColor, isDusk), nightMiddleColor, isNight), mix(rainMiddleColor, vec3(0.3), isNight), isRain);
-    vec3 darkCol_1 = mix(mix(mix(upperBottomColor, duskUpperBottomColor, isDusk), nightUpperBottomColor, isNight), mix(rainUpperBottomColor, vec3(0.05), isNight), isRain);
-    vec3 darkCol_2 = mix(mix(mix(bottomColor, duskBottomColor, isDusk), nightBottomColor, isNight), mix(rainBottomColor, vec3(0.05), isNight), isRain);
+    skyCol_X = mix(skyCol_X, mix(skyRainUpperColor, vec3(0.15,0.15,0.15), isNight), isRain);
+    vec3 skyCol_1 = mix(mix(mix(skyBaseColor, skyDuskBaseColor, isDusk), skyNightBaseColor, isNight), mix(skyRainBaseColor, vec3(0.25,0.25,0.25), isNight), isRain);
+    vec3 skyCol_2 = mix(mix(mix(midfogColor, duskMiddleColor, isDusk), nightMiddleColor, isNight), mix(rainMiddleColor, vec3(0.3,0.3,0.3), isNight), isRain);
+    vec3 darkCol_1 = mix(mix(mix(upperBottomColor, duskUpperBottomColor, isDusk), nightUpperBottomColor, isNight), mix(rainUpperBottomColor, vec3(0.05,0.05,0.05), isNight), isRain);
+    vec3 darkCol_2 = mix(mix(mix(bottomColor, duskBottomColor, isDusk), nightBottomColor, isNight), mix(rainBottomColor, vec3(0.05,0.05,0.05), isNight), isRain);
 
     vec3 color = mix(skyCol_2, skyCol_1, smoothing1);
     color = mix(color, skyCol_X, smoothingX);
     color = mix(color, darkCol_1, smoothing2);
     color = mix(color, darkCol_2, smoothing3);
 
-    diff = color;*/
+    diff = color;
     return diff;
 }
 
