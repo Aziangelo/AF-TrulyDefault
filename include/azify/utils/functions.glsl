@@ -4,10 +4,7 @@
 
   // TIME AND WORLD DETECTIONS ========>>>>>>
  #define detect(a,b,x) clamp(((x)-(a))/((b)-(a)), 0.0, 1.0)
- #define AFrain(FND) smoothstep(0.66, 0.3, FND.x)
- #define AFnight(FND,FGC) mix( detect( 0.65, 0.02, FGC.r ), detect( 0.15, 0.01, FGC.g ), AFrain(FND )
- #define AFdusk(FND,FGC) mix( detect( 1.0, 0.0, FGC.b ), detect( 0.25, 0.15, FGC.g ), AFrain(FND))
- //#define timecycle3( a, b, c ) mix(mix( a, b, AFdusk ), c, AFnight )
+// #define timecycle3( a, b, c , FGC,FND) mix(mix( a, b, AFdusk( FND,FGC), c, AFnight(FND,FGC )
  // END OF TIME DETECTIONS =========>>>>>>>>
  
  
