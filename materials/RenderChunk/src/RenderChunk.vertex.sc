@@ -143,7 +143,7 @@ void main() {
   vec4 waterRy2;
     float wdisp = clamp(sin(noise(waterDisp)), 0.23, 1.0);
     waterOpa = vec4(skyMIEX, 1.0) * 0.3;
-    /*
+    
     vec2 at2 = vec2(atan2(worldPos.x, worldPos.z) * 24.0);
     vec2 noisePos = at2 - wdisp * 6.0;
     float noiseVal = noise(noisePos);
@@ -154,7 +154,7 @@ void main() {
     waterSim.rgb = simCol.rgb;
     waterSim.a = fadeFact;
     //#endif
-    
+    /*
     //#ifdef WATER_SUNRAY // WATER SUN RAYS BLOOM
     waterRy1.rgb = skyMIEP;
     waterRy1.a = a_texcoord1.y * (1.0 - AFnight) * (1.0 - AFrain) * (AFdusk);
