@@ -1,6 +1,7 @@
 $input v_color0, v_fog, v_texcoord0, v_lightmapUV, v_cpos, v_wpos, v_color1, v_color2, v_color3, v_color4, v_color5, v_color6, v_color7, v_color8, v_color9
 
 #include <bgfx_shader.sh>
+#include <azify/utils/functions.glsl>
 
 uniform vec4 FogColor;
 uniform vec4 SkyColor;
@@ -45,7 +46,7 @@ void main() {
     diffuse.a = 1.0;
 #endif
 
-    diffuse.rgb *= texture2D(s_LightMapTexture, v_lightmapUV).rgb;
+    //diffuse.rgb *= texture2D(s_LightMapTexture, v_lightmapUV).rgb;
 
     diffuse.rgb = mix(diffuse.rgb, FogColor.rgb, v_fog.a);
     gl_FragColor = diffuse;
