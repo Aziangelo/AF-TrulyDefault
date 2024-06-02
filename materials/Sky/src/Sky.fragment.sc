@@ -15,8 +15,9 @@ void main() {
 #if defined(OPAQUE)
 #include <azify/utils/components.glsl> // Components Files
 vec3 albedo;
-/*
+
    vec3 basepos_1 = normalize(v_skypos);
+   /*
    if (dev_UnWater) {
       albedo = vec3(UNDERWATER_COLOR);
    } else {
