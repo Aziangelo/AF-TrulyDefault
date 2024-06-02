@@ -145,14 +145,14 @@ void main() {
     waterOpa = vec4(skyMIEX, 1.0) * 0.3;
     
     vec2 at2 = vec2(atan2(worldPos.x, worldPos.z) * 24.0);
-    vec2 noisePos = vec2(at2 - wdisp * 6.0);
-    float noiseVal = noise(noisePos);
-    float fadeFact = clamp(length(vec2(worldPos.xz * 0.3 / worldPos.y * 0.6)), 0.0, 1.0) * 0.8;
+    //vec2 noisePos = vec2(at2 - wdisp * 6.0);
+    //float noiseVal = noise(noisePos);
+    //float fadeFact = clamp(length(vec2(worldPos.xz * 0.3 / worldPos.y * 0.6)), 0.0, 1.0) * 0.8;
     
     //#ifdef SIMULATED_WATER // WATER SIMULATION ENABLE
-    vec3 simCol = vec3(skyMIEX * mix(1.0, 2.5, AFrain * AFnight));
-    waterSim.rgb = simCol;
-    waterSim.a = fadeFact;
+    //vec3 simCol = vec3(skyMIEX * mix(1.0, 2.5, AFrain * AFnight));
+    //waterSim.rgb = simCol;
+    //waterSim.a = fadeFact;
     //#endif
     /*
     //#ifdef WATER_SUNRAY // WATER SUN RAYS BLOOM
