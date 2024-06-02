@@ -133,7 +133,7 @@ void main() {
   float wpz = a_position.z * 1.0;
   vec2 waterDisp = vec2(wpz + ViewPositionAndTime.w* 0.03, wpx + ViewPositionAndTime.w* 1.45 + wpz + wpy);
 
-/*
+
   // WATER WAVES  =============>>>>>>>>
   vec3 nskyposN = normalize(-skyPos);
   vec3 skyMIEX = dynamicSky(FogColor.rgb, nskyposN, AFnight, AFdusk, AFrain, SkyColor.rgb, FogColor.rgb);
@@ -143,7 +143,7 @@ void main() {
   vec4 waterRy2;
     float wdisp = clamp(sin(noise(waterDisp)), 0.23, 1.0);
     waterOpa = vec4(skyMIEX, 1.0) * 0.3;
-    
+    /*
     vec2 at2 = vec2(atan2(worldPos.x, worldPos.z) * 24.0);
     vec2 noisePos = at2 - wdisp * 6.0;
     float noiseVal = noise(noisePos);
