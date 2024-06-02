@@ -23,18 +23,7 @@ void main() {
 
     vec3 worldPos = mul(model, vec4(a_position, 1.0)).xyz;
     vec4 color;
-#ifdef RENDER_AS_BILLBOARDS
-    worldPos += vec3(0.5, 0.5, 0.5);
-    vec3 viewDir = normalize(worldPos - ViewPositionAndTime.xyz);
-    vec3 boardPlane = normalize(vec3(viewDir.z, 0.0, -viewDir.x));
-    worldPos = (worldPos -
-        ((((viewDir.yzx * boardPlane.zxy) - (viewDir.zxy * boardPlane.yzx)) *
-        (a_color0.z - 0.5)) +
-        (boardPlane * (a_color0.x - 0.5))));
-    color = vec4(1.0, 1.0, 1.0, 1.0);
-#else
     color = a_color0;
-#endif
 
     vec3 modelCamPos = (ViewPositionAndTime.xyz - worldPos);
     float camDis = length(modelCamPos);
