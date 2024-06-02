@@ -45,7 +45,7 @@ void main() {
 #include <azify/utils/components.glsl> // Components Files
   vec4 albedo;
   vec3 normal = normalize(cross(dFdx(v_cpos), dFdy(v_cpos)));
-  //albedo.rgb = CloudBase(albedo.rgb, normal, AFdusk, AFnight, AFrain);
+  albedo.rgb = CloudBase(albedo.rgb, normal, AFdusk, AFnight, AFrain);
    gl_FragColor = vec4(albedo.rgb, v_color0.a);
 #endif
 }
