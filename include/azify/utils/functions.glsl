@@ -57,8 +57,8 @@ float voronoi(vec2 pos, float time) {
     mat2 m = mat2(7, -5, 5, 7) * 0.1;
     
     return min(
-        length(fract(p + tt) - vec2(0.5)),
-        length(fract((p + vec2(0.5) - tt * 0.2) * m) - vec2(0.5))
+        length(customFract(p + tt) - vec2(0.5)),
+        length(customFract((p + vec2(0.5) - tt * 0.2) * m) - vec2(0.5))
     );
 }
 /*
