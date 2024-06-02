@@ -144,6 +144,6 @@ void main() {
     diffuse.rgb = mix(diffuse.rgb, v_color9.rgb, v_color9.a);
   #endif
 
-   // diffuse.rgb = mix(diffuse.rgb, v_fog.rgb, v_fog.a);
+    diffuse.rgb = mix(diffuse.rgb, v_fog.rgb, v_fog.a);
     gl_FragColor = diffuse;
 }

@@ -185,4 +185,65 @@ void main() {
     v_color8 = waterRy2;
     v_color9 = rainTfog;
     gl_Position = mul(u_viewProj, vec4(worldPos, 1.0));
+
+  // WAVE EFFECTS STARTS HERE =============>>>>>>>>
+  float htime = ViewPositionAndTime.w;
+  vec3 tlpos = vec3(mod (a_position, vec3(2.0, 2.0, 2.0)));
+
+  // CALVULATE HEAT WAVE - Licensed By: Azi Angelo
+  #ifdef HEAT_WAVE
+  if (dev_Nether) {
+    float hw1 = sin(tlpos.z * 1.0 + htime * 11.0) * 0.005;
+    float hw2 = sin(tlpos.x * 1.0 + htime * 11.0) * 0.003;
+    float hw4 = sin(tlpos.y * 1.0 + htime * 11.0) * 0.00;
+    float hw5 = sin(tlpos.z) * 0.1;
+    gl_Position.x += hw1 + hw2 + hw4;
+    gl_Position.y += hw1 + hw2 + hw4;
+  }
+  #endif
+
+  // DETERMINE WATER TEXTURE
+  #ifdef WATER_WAVE
+  #if !defined(DEPTH_ONLY_OPAQUE) || defined(DEPTH_ONLY)
+  #ifdef TRANSPARENT
+  if (waterFlag) {
+    highp float wtime = ViewPositionAndTime.w * WATER_WAVE_SPEED;
+    float timeFactor1 = wtime * 2.0;
+    float timeFactor2 = wtime * 1.5;
+    float timeFactor4 = wtime * 5.0;
+    
+    float sinZ = sin(tlpos.z);
+    float sinZ_t1 = sin(tlpos.z + timeFactor1) * 0.05;
+    float sinX_t2 = sin(tlpos.x + timeFactor2) * 0.03;
+    float sinY_t4 = sin(tlpos.y * 1.5 + timeFactor4) * 0.02;
+    float sinZ_0 = sinZ * 0.1;
+    
+    gl_Position.y += sinZ_t1 + sinX_t2 + sinY_t4 * sinZ_0;
+  }
+  #endif
+  #endif
+  #endif
+ 
+  // WAVE MOVEMENTS - Licensed By: Azi Angelo
+  #ifdef PLANTS_WAVE
+  bool isColors = color.r != color.g || color.r != color.b;
+  #if defined(ALPHA_TEST)
+   if (isColors) {
+    highp float time = ViewPositionAndTime.w * PLANTS_WAVE_SPEED;
+    float t1 = time * 1.5;
+    float t2 = time * 0.4;
+    float t3 = time * 1.2;
+    float t4 = time * 3.0;
+    
+    float sinZ = sin(tlpos.z);
+    float sinZ_t1 = sin(tlpos.z + t1) * 0.07;
+    float sinX_t2 = sin(tlpos.x + t2) * 0.04;
+    float cosZ_t3 = cos(tlpos.z + t3) * 0.05;
+    float sinY_t4 = sin(tlpos.y * 1.5 + t4) * 0.1;
+    float sinZ_0 = sinZ * 0.1;
+    
+    gl_Position.x += sinZ_t1 + sinX_t2 + cosZ_t3 + sinY_t4 * sinZ_0;
+   }
+  #endif
+  #endif
 }
