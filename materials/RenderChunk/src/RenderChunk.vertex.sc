@@ -68,6 +68,37 @@ void main() {
   #ifdef DIRLIGHT_BOTTOM
     DirectLightColor.rgb = mix(vec3(1.0,1.0,1.0), vec3(0.7, 0.75, 0.8), a_texcoord1.y);
   #endif
+  
+  // SMOOTH AMBIENT OCCLUSION
+  vec4 AOColor;
+   float minColor = min(a_color0.r, a_color0.b);
+   float aoFactor = a_color0.g * 2.0 - minColor;
+   float vanillaAO = 1.0 - aoFactor * 1.4;
+   float fakeAO = clamp(1.0- vanillaAO * 0.5, 0.0, 1.0);
+   AOColor.rgb = mix(vec3(1.0,1.0,1.0), vec3(0.1, 0.11, 0.15), 1.0-fakeAO);
+  
+  
+  // WORLD COLORS
+  vec3 WorldColor;
+  #ifdef ENABLE_LIGHTS
+    WorldColor = mix(mix(vec3(0.9, 0.94, 1.0), vec3(0.54, 0.46, 0.42), AFdusk), vec3(0.43, 0.43, 0.67), AFnight);
+    WorldColor = mix(WorldColor, vec3(0.14,0.14,0.14), isCaveX);
+    WorldColor = mix(WorldColor, mix(mix(vec3(0.45, 0.5, 0.6), vec3(0.2,0.2,0.2), AFdusk), vec3(0.2, 0.2, 0.3), AFnight), isCave * (1.0 - isCaveX));
+    WorldColor = mix(WorldColor, vec3(1.0,1.0,1.0), isLight);
+  #endif
+
+  // TORCH LIGHTS
+  vec3 TorchColor;
+  #if TORCHLIGHT_MODES == 0
+    TorchColor = vec3(0.9,0.9,0.9) * a_texcoord1.x;
+  #elif TORCHLIGHT_MODES == 1
+    float torchPower = pow(a_texcoord1.x * 1.09, 4.0);
+    TorchColor = vec3(torchColor) * torchPower;
+  #elif TORCHLIGHT_MODES == 2
+    float smotherLight = smoothstep(0.7, 1.1, a_texcoord1.x);
+    TorchColor = vec3(torchColor) * smotherLight;
+  #endif
+  vec4 finalWColor = vec4(WorldColor + TorchColor,1.0);
 
     v_texcoord0 = a_texcoord0;
     v_lightmapUV = a_texcoord1;
@@ -76,5 +107,7 @@ void main() {
     v_cpos = a_position;
     v_wpos = worldPos;
     v_color1 = DirectLightColor;
+    v_color2 = AOColor;
+    v_color3 = finalWColor;
     gl_Position = mul(u_viewProj, vec4(worldPos, 1.0));
 }

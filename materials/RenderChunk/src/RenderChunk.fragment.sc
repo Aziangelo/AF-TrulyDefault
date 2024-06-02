@@ -56,6 +56,18 @@ void main() {
     diffuse.rgb *= mix(vec3(1.0,1.0,1.0), v_color1.rgb, raterDirY);
   #endif
 
+  // SMOOTH AMBIENT OCCLUSION
+  #ifndef ALPHA_TEST
+   diffuse.rgb *= v_color2.rgb;
+  #endif
+
+  // WORLD COLORS
+  #ifdef ENABLE_LIGHTS
+    diffuse.rgb *= v_color3.rgb;
+  #endif
+
+
+
     diffuse.rgb = mix(diffuse.rgb, v_fog.rgb, v_fog.a);
     gl_FragColor = diffuse;
 }
