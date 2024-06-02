@@ -65,7 +65,7 @@ void main() {
     float cameraDepth = position.z;
     float relativeDist = cameraDepth / FogControl.z;
     //relativeDist = saturate((relativeDist - FogControl.x) / (FogControl.y - FogControl.x));
-     float density = timecycle3(0.15, 5.5, 0.25);
+     float density = mix(mix(0.15, 5.5, AFdusk), 0.25, AFnight);
     float fogIntensity;
     fogIntensity = smoothstep(FogAndDistanceControl.x, FogAndDistanceControl.y, relativeDist);
     fogIntensity += (1.0-fogIntensity)*(0.5-0.5*exp(-relativeDist*relativeDist*density));
@@ -74,7 +74,7 @@ void main() {
     vec3 skyPos = (worldPosition.xyz + vec3(0.0, 0.128, 0.0));
     vec3 nskyposP = normalize(skyPos);
     vec3 fogMie;
-    vec3 skyMIEP = dynamicSky(FogColor.rgb, nskyposP,AFnight, AFdusk, AFrain);
+    vec3 skyMIEP = dynamicSky(FogColor.rgb, nskyposP, AFnight, AFdusk, AFrain, SkyColor.rgb, FogColor.rgb);
     if (dev_UnWater) {
       fogMie = UNDERWATER_COLOR;
     } else if (dev_Nether || dev_End) {
@@ -106,7 +106,7 @@ void main() {
     //vec3 red = vec3(1.0,0.0, 0.0);
     //vec3 gren = vec3(0.0, 1.0, 0.0);
     //vec3 blue = vec3(0.0, 0.0, 1.0);
-    vec3 wcolor = timecycle3(vec3(0.9, 0.94, 1.0), vec3(0.54, 0.46, 0.42), vec3(0.43, 0.43, 0.67));
+    vec3 wcolor = mix(mix(vec3(0.9, 0.94, 1.0), vec3(0.54, 0.46, 0.42), AFdusk), vec3(0.43, 0.43, 0.67), AFnight);
     wcolor = mix(wcolor, vec3(0.14,0.14,0.14), isCaveX);
     wcolor = mix(wcolor, vec3(1.0,1.0,1.0), isTorch);
     WorldColor.rgb = wcolor;
