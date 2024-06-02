@@ -76,7 +76,7 @@ void main() {
     diffuse.rgb = mix(diffuse.rgb, v_color3.rgb, v_color3.a);
   #endif
 
-
+/*
   // WATER WAVES
   #if !defined(DEPTH_ONLY_OPAQUE) || defined(DEPTH_ONLY)
   #ifdef TRANSPARENT
@@ -107,7 +107,7 @@ void main() {
   }
   #endif
   #endif
-
+*/
 
   // WET EFFECT POS CALCULATION
   #if defined(OPAQUE)
@@ -123,11 +123,12 @@ void main() {
   #ifdef GLOSSY_WET_EFFECT
   if (dev_UnWater) {
   } else {
-    vec3 glosCol1 = mix(mix(vec3(0.7), vec3(0.65), AFdusk), vec3(0.45), AFnight);
+    vec3 glosCol1 = mix(mix(vec3(0.7,0.7,0.7), vec3(0.65,0.65,0.65), AFdusk), vec3(0.45,0.45,0.45), AFnight);
     diffuse = mix(diffuse, vec4(glosCol1, 1.0), nDot * mix(0.6, 0.35, AFnight) * clamp(max(0.0, normal.y), 0.0, 1.0) * roughnessFactor * (1.0- max(sunShadow, glCv)) * AFrain);
   }
   #endif
 
+/*
   // TERRAIN REFLECTION REPLICA
   #ifdef RAIN_TERRAIN_REFLECTION
     float wetDisp = clamp(voronei((v_cpos.xz + v_cpos.y) * 0.8), 0.0, 1.0);
@@ -137,7 +138,7 @@ void main() {
     diffuse.xyz = mix (diffuse.xyz, vec3(0.1), wetVal * clamp(max(0.0, normal.y), 0.0, 1.0) * wetfadeFact * roughnessFactor * AFrain * (1.0- max(sunShadow, glCv)));
   #endif
   #endif
-
+*/
   // THICK RAIN FOG
   #ifdef RAIN_THICK_FOG
     diffuse.rgb = mix(diffuse.rgb, v_color9.rgb, v_color9.a);
