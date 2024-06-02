@@ -136,9 +136,9 @@ void main() {
     float wetVal = noise(wetNoisePos);
     float wetfadeFact = clamp(length(vec2(v_wpos.xz * 0.3 / v_wpos.y * 0.5)), 0.0, 1.0);
     diffuse.xyz = mix (diffuse.xyz, vec3(0.1), wetVal * clamp(max(0.0, normal.y), 0.0, 1.0) * wetfadeFact * roughnessFactor * AFrain * (1.0- max(sunShadow, glCv)));
+  #endif*/
   #endif
-  #endif
-*/
+
   // THICK RAIN FOG
   #ifdef RAIN_THICK_FOG
     diffuse.rgb = mix(diffuse.rgb, v_color9.rgb, v_color9.a);
