@@ -24,9 +24,10 @@ void main() {
 #include <azify/utils/components.glsl> // Components Files
     //Opaque
     vec4 tmpvar = vec4(a_position, 1.0);
+    /*
     tmpvar.y -= sqrt(dot(a_position.xz, a_position.xz) * 17.5);
     v_skypos = tmpvar.xyz + vec3(0.0, 0.128, 0.0);
-    v_cpos = a_position;
+    v_cpos = a_position;*/
     v_color0 = mix(SkyColor, FogColor, a_color0.x);
     gl_Position = mul(u_modelViewProj, tmpvar);
 #else
