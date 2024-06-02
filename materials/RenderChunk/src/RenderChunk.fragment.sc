@@ -92,7 +92,7 @@ void main() {
     float noiseVal = noise(vec2(atan2(v_wpos.x, v_wpos.z) * noiseScale, atan2(v_wpos.x, v_wpos.z) * noiseScale) - wdisp * dispScale);
     #ifdef SIMULATED_WATER
       diffuse.rgb = mix(v_color5.rgb, v_color6.rgb, noiseVal * v_color6.a);
-    #endif/*
+    #endif
     #ifdef WATER_SUNRAY // WATER SUN RAYS BLOOM
     float slent = length(v_wpos.zy / v_wpos.x * 12.0 * vec2(0.4, 0.1));
     float sunRayFactor = clamp(1.0 - slent - wdisp * 1.5, 0.0, 1.0);
@@ -103,7 +103,7 @@ void main() {
     float srf = smoothstep(0.0, 0.75, sunRayFactor);
     diffuse = mix(diffuse, vec4(v_color7.rgb,0.9), rbf * v_color7.a);
     diffuse = mix(diffuse, vec4(v_color8.rgb,1.0), srf * v_color8.a);
-    #endif*/
+    #endif
   }
   #endif
   #endif
