@@ -7,7 +7,7 @@ uniform vec4 SkyColor;
 uniform vec4 FogColor;
 uniform vec4 FogAndDistanceControl;
 uniform vec4 ViewPositionAndTime;
-/*
+
 vec3 CloudBase(vec3 color, vec3 normalPos, float isDusk, float isNight, float isRain) {
   vec3 CloudCol_1; // Day
   CloudCol_1 = vec3(0.48, 0.65, 1.0);
@@ -36,7 +36,7 @@ vec3 CloudBase(vec3 color, vec3 normalPos, float isDusk, float isNight, float is
   color = CloudF;
  return color;
 }
-*/
+
 void main() {
 
 #if defined(DEPTH_ONLY_OPAQUE)
