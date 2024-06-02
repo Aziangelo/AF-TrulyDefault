@@ -58,7 +58,7 @@ void main() {
 
   // SMOOTH AMBIENT OCCLUSION
   #ifndef ALPHA_TEST
-   diffuse.rgb *= v_color2.rgb;
+   //diffuse.rgb *= v_color2.rgb;
   #endif
 
   // WORLD COLORS

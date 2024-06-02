@@ -2,7 +2,7 @@ $input a_color0, a_position, a_texcoord0, a_texcoord1
 #ifdef INSTANCING
     $input i_data0, i_data1, i_data2
 #endif
-$output v_color0, v_fog, v_texcoord0, v_lightmapUV, v_cpos, v_wpos, v_color1, v_color2, v_color3, v_color4, v_color5, v_color6, v_color7, v_color8, v_color9, v_colorx
+$output v_color0, v_fog, v_texcoord0, v_lightmapUV, v_cpos, v_wpos, v_color1, v_color2, v_color3, v_color4, v_color5, v_color6, v_color7, v_color8, v_color9
 
 #include <bgfx_shader.sh>
 #include <azify/utils/functions.glsl>
@@ -98,7 +98,9 @@ void main() {
     float smotherLight = smoothstep(0.7, 1.1, a_texcoord1.x);
     TorchColor = vec3(torchColor) * smotherLight;
   #endif
-  vec4 finalWColor = vec4(WorldColor + TorchColor,1.0);
+  vec4 finalWColor;
+  //finalWColor = AOColor;
+  finalWColor = vec4(AOColor.rgb * WorldColor + TorchColor,1.0);
 
     v_texcoord0 = a_texcoord0;
     v_lightmapUV = a_texcoord1;
