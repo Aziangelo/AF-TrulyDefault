@@ -2,7 +2,7 @@ $input v_color0, v_fog, v_texcoord0, v_lightmapUV, v_cpos, v_wpos, v_color1, v_c
 
 #include <bgfx_shader.sh>
 #include <azify/utils/functions.glsl>
-
+// AziFy Truly Default;
 uniform vec4 FogColor;
 uniform vec4 SkyColor;
 uniform vec4 FogAndDistanceControl;

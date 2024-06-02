@@ -6,7 +6,7 @@ $output v_color0, v_fog, v_texcoord0, v_lightmapUV, v_cpos, v_wpos, v_color1, v_
 
 #include <bgfx_shader.sh>
 #include <azify/utils/functions.glsl>
-
+// AziFy Truly Default;
 uniform vec4 RenderChunkFogAlpha;
 uniform vec4 FogAndDistanceControl;
 uniform vec4 ViewPositionAndTime;
