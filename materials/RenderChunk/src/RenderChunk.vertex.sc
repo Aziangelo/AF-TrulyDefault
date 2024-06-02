@@ -58,9 +58,23 @@ void main() {
     };
 #endif
 
+  // MANIFIGULATOR (-_-?)
+  float isCaveX = smoothstep(1.0, 0.35, a_texcoord1.y);
+  float isCave = smoothstep(0.91, 0.77, a_texcoord1.y);
+  float isLight = pow(a_texcoord1.x, 3.0);
+
+  // DIRECT LIGHT REPLICA
+  vec3 DirectLightColor;
+  #ifdef DIRLIGHT_BOTTOM
+    DirectLightColor.rgb = mix(vec3(1.0,1.0,1.0), vec3(0.7, 0.75, 0.8), a_texcoord1.y);
+  #endif
+
     v_texcoord0 = a_texcoord0;
     v_lightmapUV = a_texcoord1;
     v_color0 = color;
     v_fog = fogColor;
+    v_cpos = a_position;
+    v_wpos = worldPos;
+    v_color1 = vec4(DirectLightColor,1.0);
     gl_Position = mul(u_viewProj, vec4(worldPos, 1.0));
 }
