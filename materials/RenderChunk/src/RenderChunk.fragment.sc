@@ -53,7 +53,7 @@ void main() {
   // DIRECT LIGHT REPLICA
   #ifdef DIRLIGHT_BOTTOM
     float raterDirY = max(0.0, -normal.y);
-    diffuse.rgb *= mix(vec3(1.0), v_color1.rgb, raterDirY);
+    diffuse.rgb *= mix(vec3(1.0,1.0,1.0), v_color1.rgb, raterDirY);
   #endif
 
     diffuse.rgb = mix(diffuse.rgb, v_fog.rgb, v_fog.a);

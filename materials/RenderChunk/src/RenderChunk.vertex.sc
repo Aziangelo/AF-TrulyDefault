@@ -64,7 +64,7 @@ void main() {
   float isLight = pow(a_texcoord1.x, 3.0);
 
   // DIRECT LIGHT REPLICA
-  vec3 DirectLightColor;
+  vec4 DirectLightColor;
   #ifdef DIRLIGHT_BOTTOM
     DirectLightColor.rgb = mix(vec3(1.0,1.0,1.0), vec3(0.7, 0.75, 0.8), a_texcoord1.y);
   #endif
@@ -75,6 +75,6 @@ void main() {
     v_fog = fogColor;
     v_cpos = a_position;
     v_wpos = worldPos;
-    v_color1 = vec4(DirectLightColor,1.0);
+    v_color1 = DirectLightColor;
     gl_Position = mul(u_viewProj, vec4(worldPos, 1.0));
 }
