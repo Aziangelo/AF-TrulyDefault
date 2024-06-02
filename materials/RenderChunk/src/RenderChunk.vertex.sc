@@ -5,6 +5,7 @@ $input a_color0, a_position, a_texcoord0, a_texcoord1
 $output v_color0, v_fog, v_texcoord0, v_lightmapUV
 
 #include <bgfx_shader.sh>
+#include <azify/utils/functions.glsl>
 
 uniform vec4 RenderChunkFogAlpha;
 uniform vec4 FogAndDistanceControl;

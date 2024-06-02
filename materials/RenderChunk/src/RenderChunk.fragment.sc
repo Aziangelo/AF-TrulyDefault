@@ -6,7 +6,7 @@ uniform vec4 FogColor;
 uniform vec4 SkyColor;
 uniform vec4 FogAndDistanceControl;
 uniform vec4 ViewPositionAndTime;
-#include <azify/utils/functions.glsl>
+//#include <azify/utils/functions.glsl>
 
 SAMPLER2D_AUTOREG(s_MatTexture);
 SAMPLER2D_AUTOREG(s_SeasonsTexture);
