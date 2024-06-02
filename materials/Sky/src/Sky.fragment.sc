@@ -17,7 +17,7 @@ void main() {
    vec3 basepos_1 = normalize(v_skypos);
    vec3 albedo;
    if (dev_UnWater) {
-      albedo = UNDERWATER_COLOR;
+      albedo = vec3(UNDERWATER_COLOR);
    } else {
       albedo += dynamicSky(albedo, basepos_1,AFnight, AFdusk, AFrain, SkyColor.rgb, FogColor.rgb);
    }
