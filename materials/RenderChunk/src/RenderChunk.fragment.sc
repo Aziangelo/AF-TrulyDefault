@@ -45,6 +45,7 @@ void main() {
 #ifndef TRANSPARENT
     diffuse.a = 1.0;
 #endif
+#include <azify/utils/components.glsl> // Components Files
 
     //diffuse.rgb *= texture2D(s_LightMapTexture, v_lightmapUV).rgb;
 
