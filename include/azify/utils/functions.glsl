@@ -101,6 +101,7 @@ vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRai
     // Calculate sky colors
     vec3 skyCol_X = mix(skyUpperColor, skyDuskUpperColor, isDusk);
     skyCol_X = mix(skyCol_X, skyNightUpperColor, isNight);
+    skyCol_X = mix(skyCol_X, mix(skyRainUpperColor, vec3(0.1), isNight), isRain);
     //vec3 skyCol_X = mix(mix(mix(skyUpperColor, skyDuskUpperColor, isDusk), skyNightUpperColor, isNight), mix(skyRainUpperColor, vec3(0.1), isNight), isRain);
     /*
     vec3 skyCol_1 = mix(mix(mix(skyBaseColor, skyDuskBaseColor, isDusk), skyNightBaseColor, isNight), mix(skyRainBaseColor, vec3(0.25), isNight), isRain);
