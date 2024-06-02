@@ -61,7 +61,7 @@ float voronoi(vec2 pos, float time) {
         length(fract((p + vec2(0.5) - tt * 0.2) * m) - vec2(0.5))
     );
 }
-/*
+
 // SKY FUNCTION
 vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRain, vec3 skycolor, vec3 fogcolor) {
     // Precomputed constant Colors
@@ -75,7 +75,7 @@ vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRai
     vec3 skyNightBaseColor = vec3(0.1, 0.15, 0.3);
     vec3 skyRainBaseColor = vec3(0.8, 0.8, 0.8);
     
-    vec3 midfogColor = vec3(fogcolor) + 0.14;
+    vec3 midfogColor = fogcolor + 0.14;
     vec3 duskMiddleColor = vec3(1.0, 0.43, 0.23) + 0.16;
     vec3 nightMiddleColor = vec3(0.35, 0.6, 0.8) + 0.1;
     vec3 rainMiddleColor = vec3(0.43, 0.43, 0.43);
@@ -111,7 +111,7 @@ vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRai
 
     diff = color;
     return diff;
-}*/
+}
 
 float sunDirShadow(vec4 color0, vec2 lightmapUV) {
      float shadow = smoothstep(0.885, 0.71, color0.y + 0.2 * (color0.y - color0.z));
