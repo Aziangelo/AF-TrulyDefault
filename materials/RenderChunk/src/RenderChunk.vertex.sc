@@ -148,11 +148,11 @@ void main() {
     float fadeFact = clamp(length(vec2(worldPos.xz * 0.3 / worldPos.y * 0.6)), 0.0, 1.0) * 0.8;
     
     //#ifdef SIMULATED_WATER // WATER SIMULATION ENABLE
-    //vec3 simCol = vec3(skyMIEX * mix(1.0, 2.5, AFrain * AFnight));
-    //waterSim.rgb = simCol;
-    //waterSim.a = fadeFact;
+    vec3 simCol = vec3(skyMIEX * mix(1.0, 2.5, AFrain * AFnight));
+    waterSim.rgb = simCol;
+    waterSim.a = fadeFact;
     //#endif
-    /*
+    
     //#ifdef WATER_SUNRAY // WATER SUN RAYS BLOOM
     waterRy1.rgb = skyMIEP;
     waterRy1.a = a_texcoord1.y * (1.0 - AFnight) * (1.0 - AFrain) * (AFdusk);
@@ -167,7 +167,7 @@ void main() {
     rainTfog.rgb = skyMIEP;
     rainTfog.a = 0.85 * fogDist * AFrain;
   #endif
-*/
+
 
     v_texcoord0 = a_texcoord0;
     v_lightmapUV = a_texcoord1;
