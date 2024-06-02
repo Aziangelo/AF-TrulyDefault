@@ -1,4 +1,4 @@
-$input v_color0, v_color1, v_color2, v_color3, v_color4, v_color5, v_color6, v_color7, v_color8, v_color9, v_color10, v_color11, v_color12, v_fog, v_texcoord0, v_lightmapUV, v_cpos, v_wpos, v_wDisp
+$input v_color0, v_fog, v_texcoord0, v_lightmapUV
 
 #include <bgfx_shader.sh>
 
