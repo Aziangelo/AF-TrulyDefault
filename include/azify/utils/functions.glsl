@@ -1,6 +1,6 @@
 #ifndef FUNCTIONS
  #define FUNCTIONS
-//#include <azify/shader_inputs.glsl>
+#include <azify/shader_inputs.glsl>
 
   // TIME AND WORLD DETECTIONS ========>>>>>>
  #define detect(a,b,x) clamp(((x)-(a))/((b)-(a)), 0.0, 1.0)

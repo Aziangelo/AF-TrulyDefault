@@ -11,6 +11,7 @@ uniform vec4 RenderChunkFogAlpha;
 uniform vec4 FogAndDistanceControl;
 uniform vec4 ViewPositionAndTime;
 uniform vec4 FogColor;
+uniform vec4 SkyColor;
 
 void main() {
     mat4 model;
@@ -37,6 +38,20 @@ void main() {
     fog = smoothstep(FogAndDistanceControl.x, FogAndDistanceControl.y, relativeDist);
     fog += (1.0-fog)*(0.5-0.5*rrt);
 
+    // SKY BASED FOG
+    vec3 skyPos = (worldPos.xyz + vec3(0.0, 0.128, 0.0));
+    vec3 nskyposP = normalize(skyPos);
+    vec3 fogMie;
+    vec3 skyMIEP = dynamicSky(FogColor.rgb, nskyposP, AFnight, AFdusk, AFrain, SkyColor.rgb, FogColor.rgb);
+    if (dev_UnWater) {
+      fogMie = UNDERWATER_COLOR;
+    } else if (dev_Nether || dev_End) {
+      fogMie = FogColor.rgb;
+    } else {
+      fogMie = skyMIEP;
+    }
+    fogColor.rgb = fogMie;
+    fogColor.a = fog;
 #ifdef TRANSPARENT
     if(a_color0.a < 0.95) {
         color.a = mix(a_color0.a, 1.0, clamp((camDis / FogAndDistanceControl.w), 0.0, 1.0));
