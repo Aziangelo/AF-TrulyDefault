@@ -1,4 +1,4 @@
-$input v_color0, CubePosition, v_fogColor, v_fogControl, v_cpos
+$input v_color0, CubePosition, v_fogColor, v_cpos
 
 #include <bgfx_shader.sh>
 #include <azify/utils/functions.glsl>
