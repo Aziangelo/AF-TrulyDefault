@@ -14,5 +14,4 @@ vec3 CubePosition : POSITION;
 vec4 v_fogColor    : v_fog;
 vec2 v_fogControl  : FOG_CONTROL.xy;
 
-float TIME        : FRAME_TIME_COUNTER;
 vec3 v_cpos       : POSITION;

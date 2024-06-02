@@ -7,7 +7,7 @@ uniform vec4 SkyColor;
 uniform vec4 FogColor;
 uniform vec4 FogAndDistanceControl;
 uniform vec4 ViewPositionAndTime;
-
+/*
 vec3 CloudBase(vec3 color, vec3 normalPos, float isDusk, float isNight, float isRain) {
   vec3 CloudCol_1; // Day
   CloudCol_1 = vec3(0.48, 0.65, 1.0);
@@ -36,7 +36,7 @@ vec3 CloudBase(vec3 color, vec3 normalPos, float isDusk, float isNight, float is
   color = CloudF;
  return color;
 }
-
+*/
 void main() {
 
 #if defined(DEPTH_ONLY_OPAQUE)
@@ -45,7 +45,7 @@ void main() {
 #include <azify/utils/components.glsl> // Components Files
   vec4 albedo;
   vec3 normal = normalize(cross(dFdx(v_cpos), dFdy(v_cpos)));
-  albedo.rgb = CloudBase(albedo.rgb, normal, AFdusk, AFnight, AFrain);
+  //albedo.rgb = CloudBase(albedo.rgb, normal, AFdusk, AFnight, AFrain);
    gl_FragColor = vec4(albedo.rgb, v_color0.a);
 #endif
 }
