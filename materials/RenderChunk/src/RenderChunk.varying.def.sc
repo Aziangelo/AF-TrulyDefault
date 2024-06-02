@@ -24,5 +24,5 @@ vec4          v_color9     : COLOR1;
 vec4          v_color10    : COLOR1;
 vec4          v_color11    : COLOR1;
 vec4          v_color12    : COLOR1; // end
-vec3          v_cpos       : POSITION; // Chunk Pos
-vec3          v_wpos       : POSITION; // World Pos
+vec3          v_cpos       : POSITION1; // Chunk Pos
+vec3          v_wpos       : POSITION2; // World Pos
