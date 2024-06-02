@@ -46,8 +46,10 @@ void main() {
     diffuse.a = 1.0;
 #endif
 #include <azify/utils/components.glsl> // Components Files
-
-    //diffuse.rgb *= texture2D(s_LightMapTexture, v_lightmapUV).rgb;
+  vec3 dx = dFdx(v_cpos);
+  vec3 dy = dFdy(v_cpos);
+  vec3 dXY = cross(dx,dy);
+  vec3 normal = normalize(dXY);
 
     diffuse.rgb = mix(diffuse.rgb, FogColor.rgb, v_fog.a);
     gl_FragColor = diffuse;
