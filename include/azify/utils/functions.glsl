@@ -43,16 +43,21 @@ float noise(vec2 x) {
 
 // Define custom fract function if it's not available
 
-vec2 customFract(vec2 x) {
-    return x - floor(x);
+vec2 rand2( vec2 p)	{
+  return fract(vec2(sin(p.x * 591.32 + p.y * 154.077), cos(p.x * 391.32 + p.y * 49.077)));
 }
-float voronoi(vec2 pos, float time) {
-    vec2 p = vec2(pos);
-    float tt = time * 0.85;
-    mat2 m = mat2(7, -5, 5, 7) * 0.1;
-    float final;
-    final = min(length(fract(p + tt) - vec2(0.5,0.5)),length(fract((p + vec2(0.5,0.5) - tt * 0.2) * mat2(m)) - vec2(0.5,0.5)));
-    return final;
+float voronoi(vec2 x, float time){
+		vec2 p = floor(x);
+		vec2 f = fract(x);
+		float res=8.0;
+		for (int j=-1;j<=8;j++) {
+			for (int i=-1;i<=1;i++){
+				vec2 b = vec2(i,j);
+				vec2 r = b-f+rand2(p+(b));
+				float d = (r.x*r.x+r.y*r.y);
+				res = min(res, d);
+			}}
+		return res;
 }
 
 // SKY FUNCTION
