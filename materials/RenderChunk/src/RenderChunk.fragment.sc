@@ -32,7 +32,12 @@ void main() {
             texture2D(s_SeasonsTexture, v_color0.xy).rgb * 2.0, v_color0.b);
     diffuse.rgb *= v_color0.aaa;
 #else
-    diffuse *= v_color0;
+    // REMOVED AMBIENT OCCLUSION
+   vec3 ncol_0 = normalize(v_color0.rgb);
+        if(abs(ncol_0.r - ncol_0.g) > 0.001 || abs(ncol_0.g - ncol_0.b) > 0.001) {
+        diffuse = vec4(diffuse.rgb * mix(ncol_0.rgb, v_color0.rgb, 0.45), v_color0.a);
+    }
+    //diffuse *= v_color0;
 #endif
 #endif
 
