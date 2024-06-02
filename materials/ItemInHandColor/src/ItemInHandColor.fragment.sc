@@ -31,7 +31,6 @@ void main() {
 #include <azify/utils/components.glsl> // Components Files
 
     albedo = applyOverlayColor(albedo, OverlayColor);
-    //albedo = applyLighting(albedo, v_light);
     float isCaveX = smoothstep(0.65, 0.1, v_light.b);
     float isTorch = smoothstep(0.5, 1.0, v_light.r);
     isTorch =  (pow(isTorch, 6.)*0.5+isTorch*0.5);
@@ -41,22 +40,22 @@ void main() {
       albedo.rgb *= vec3(0.4, 0.5, 0.8);
       
     } else if (dev_Nether) {
-       vec3 netherColor = vec3(0.38);
-      netherColor = mix(netherColor, vec3(1.0), isTorch);
+      vec3 netherColor = vec3(0.38, 0.38, 0.38);
+      netherColor = mix(netherColor, vec3(1.0,1.0,1.0), isTorch);
       albedo.rgb *= netherColor;
      
     } else if (dev_End) {
-       vec3 endColor = vec3(0.5);
-      endColor = mix(endColor, vec3(1.0), isTorch);
+      vec3 endColor = vec3(0.5, 0.5, 0.5);
+      endColor = mix(endColor, vec3(1.0,1.0,1.0), isTorch);
       albedo.rgb *= endColor;
       
     } else {
-      vec3 red = vec3(1.0,0.0, 0.0);
-      vec3 gren = vec3(0.0, 1.0, 0.0);
-      vec3 blue = vec3(0.0, 0.0, 1.0);
-       vec3 worldColor = timecycle3(vec3(0.9, 0.94, 1.0), vec3(0.34,0.26,0.22), vec3(0.43,0.43,0.67));
+      //vec3 red = vec3(1.0,0.0, 0.0);
+      //vec3 gren = vec3(0.0, 1.0, 0.0);
+      //vec3 blue = vec3(0.0, 0.0, 1.0);
+      vec3 worldColor = mix(mix(vec3(0.9, 0.94, 1.0), vec3(0.34,0.26,0.22), AFdusk), vec3(0.43,0.43,0.67), AFnight);
       worldColor = mix(worldColor, vec3(0.14,0.14,0.14), isCaveX);
-      worldColor = mix(worldColor, vec3(1.0), isTorch);
+      worldColor = mix(worldColor, vec3(1.0,1.0,1.), isTorch);
       albedo.rgb *= worldColor;
     }
     #endif
