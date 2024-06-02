@@ -21,7 +21,7 @@ vec3 albedo;
    if (dev_UnWater) {
       albedo = vec3(UNDERWATER_COLOR);
    } else {
-      albedo += dynamicSky(albedo, basepos_1,AFnight, AFdusk, AFrain, SkyColor.rgb, FogColor.rgb);
+      albedo += vec3(dynamicSky(albedo, basepos_1,AFnight, AFdusk, AFrain, SkyColor.rgb, FogColor.rgb));
    }
     gl_FragColor = vec4(albedo,1.0);
 #else
