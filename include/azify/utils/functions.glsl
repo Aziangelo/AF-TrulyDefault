@@ -99,12 +99,13 @@ vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRai
     float smoothing3 = clamp((costheta - (-0.15)) / (-0.65 - (-0.15)), 0.0, 1.0);
 
     // Calculate sky colors
+    /*
     vec3 skrin1 = mix(skyRainUpperColor, vec3(0.15,0.15,0.15), isNight);
     vec3 skyCol_X = mix(skyUpperColor, skyDuskUpperColor, isDusk);
     skyCol_X = mix(skyCol_X, skyNightUpperColor, isNight);
     
-    skyCol_X = mix(skyCol_X, skrin1, isRain);
-    //vec3 skyCol_X = mix(mix(mix(skyUpperColor, skyDuskUpperColor, isDusk), skyNightUpperColor, isNight), mix(skyRainUpperColor, vec3(0.1), isNight), isRain);
+    skyCol_X = mix(skyCol_X, skrin1, isRain);*/
+    vec3 skyCol_X = mix(mix(mix(skyUpperColor, skyDuskUpperColor, isDusk), skyNightUpperColor, isNight), mix(skyRainUpperColor, vec3(0.15,0.15,0.15), isNight), isRain);
     /*
     vec3 skyCol_1 = mix(mix(mix(skyBaseColor, skyDuskBaseColor, isDusk), skyNightBaseColor, isNight), mix(skyRainBaseColor, vec3(0.25), isNight), isRain);
     vec3 skyCol_2 = mix(mix(mix(midfogColor, duskMiddleColor, isDusk), nightMiddleColor, isNight), mix(rainMiddleColor, vec3(0.3), isNight), isRain);
