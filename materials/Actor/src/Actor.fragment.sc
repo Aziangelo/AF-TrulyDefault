@@ -3,7 +3,7 @@ $input v_color0, v_fog, v_light, v_texcoord0, v_wpos, v_color1, v_color2, v_colo
 #include <bgfx_shader.sh>
 #include <MinecraftRenderer.Materials/ActorUtil.dragonh>
 #include <MinecraftRenderer.Materials/FogUtil.dragonh>
-
+// AziFy Truly Default;
 uniform vec4 ColorBased;
 uniform vec4 ChangeColor;
 uniform vec4 UseAlphaRewrite;
