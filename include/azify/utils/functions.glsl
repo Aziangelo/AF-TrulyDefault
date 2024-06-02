@@ -90,7 +90,7 @@ vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRai
     vec3 duskBottomColor = vec3(0.76, 0.3, 0.2);
     vec3 nightBottomColor = vec3(0.0, 0.0, 0.1);
     vec3 rainBottomColor = vec3(0.43, 0.43, 0.43);
-
+/*
     // Calculate sky positions
     float costheta = dot(skyPos, vec3(0.0, 1.6, 0.0));
     float smoothing1 = pow(smoothstep(0.0, 1.0, costheta), 0.5);
@@ -110,7 +110,7 @@ vec3 dynamicSky(vec3 diff, vec3 skyPos, float isNight, float isDusk, float isRai
     color = mix(color, darkCol_1, smoothing2);
     color = mix(color, darkCol_2, smoothing3);
 
-    diff = color;
+    diff = color;*/
     return diff;
 }
 
