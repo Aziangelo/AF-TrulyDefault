@@ -82,14 +82,3 @@ If you want to compile RenderChunk.bin
 
 Compiled material.bin files will be inside `build/<platform>/`
 
-&nbsp;
-&nbsp;
-## DOWNLOAD:
-> [!NOTE]
-> This Download Section Supports me. Thank You!
-
-&nbsp;
-> **[v3.0 - ANDROID](https://direct-link.net/1015125/azify-trulydefault-v30)**
-
-> **[v3.0 - iOS](https://direct-link.net/1015125/azify-truly-default-v30)**
-
