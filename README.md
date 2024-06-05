@@ -60,7 +60,7 @@ Requirements:
 - Find termux and click on it then click `use this folder`
 
 **STEP 3:**
-- Now Open termux folder and open `AFnatural/include/azify`
+- Now Open termux folder and open the file`<REPONAME>/include/azify`
 - Open `shader_inputs.glsl`
 - Now you can edit there and customize however you want.
 
