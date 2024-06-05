@@ -3,8 +3,12 @@ build/
 data/
 env/
 
+
 # ignore files
 copy.sh
+commit.sh
+pull.sh
+
 
 # eol
 * text=lf
