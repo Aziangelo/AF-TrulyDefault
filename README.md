@@ -1,5 +1,5 @@
 ## AziFy: Truly Default
-The **AziFy Truly Default Shader** enhances the classic vanilla look of Minecraft while focusing on being lightweight and delivering ultra-realistic visuals.
+The **AziFy Truly Default Shader** enhances the classic vanilla look of Minecraft while focusing on being lightweight and delivering ultra-realistic visuals. [View The Original Work Here](https://github.com/Aziangelo/AF-TrulyDefault/tree/main)
 
 **Supported Platforms**: Android, iOS, and Windows
 
@@ -91,6 +91,8 @@ The **AziFy Truly Default Shader** enhances the classic vanilla look of Minecraf
 
 Compiled `material.bin` files will be located in `build/<platform>/`.
 
+
+[View The Original Work Here](https://github.com/Aziangelo/AF-TrulyDefault/tree/main)
 ## Download/Releases
 - [v3.0 Android/iOS](https://github.com/Aziangelo/AF-TrulyDefault/releases/tag/v3.0.1)
 
