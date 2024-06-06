@@ -82,3 +82,7 @@ If you want to compile RenderChunk.bin
 
 Compiled material.bin files will be inside `build/<platform>/`
 
+
+
+## Download/Releases
+- [v3.0 Android/iOS](https://github.com/Aziangelo/AF-TrulyDefault/releases/tag/v3.0.1)
