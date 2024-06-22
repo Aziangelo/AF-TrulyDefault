@@ -81,30 +81,34 @@ void main() {
   #if !defined(DEPTH_ONLY_OPAQUE) || defined(DEPTH_ONLY)
   #ifdef TRANSPARENT
   if (waterFlag) {
-    float noiseScale = 24.0;
-    float dispScale = 6.0;
+    const float noiseScale = 24.0;
+    const float dispScale = 6.0;
 
     float wpx = v_cpos.x * 6.0;
     float wpy = v_cpos.y * 0.5;
     float wpz = v_cpos.z * 1.0;
-    vec2 waterDisp = vec2(wpz + ViewPositionAndTime.w* 0.03, wpx + ViewPositionAndTime.w* 1.45 + wpz + wpy);
+    vec2 waterDisp = vec2(wpz + ViewPositionAndTime.w * 0.03, wpx + ViewPositionAndTime.w * 1.45 + wpz + wpy);
     float wdisp = clamp(sin(noise(waterDisp)), 0.23, 1.0);
-    float noiseVal = noise(vec2(atan2(v_wpos.x, v_wpos.z) * noiseScale, atan2(v_wpos.x, v_wpos.z) * noiseScale) - wdisp * dispScale);
+    vec2 noiseInput = vec2(atan2(v_wpos.x, v_wpos.z) * noiseScale) - wdisp * dispScale;
+    float noiseVal = noise(noiseInput);
+
     #ifdef SIMULATED_WATER
-      diffuse.rgb = mix(v_color5.rgb, v_color6.rgb, noiseVal * v_color6.a);
+    diffuse.rgb = mix(v_color5.rgb, v_color6.rgb, noiseVal * v_color6.a);
     #endif
-    #ifdef WATER_SUNRAY // WATER SUN RAYS BLOOM
+
+    #ifdef WATER_SUNRAY
     float slent = length(v_wpos.zy / v_wpos.x * 12.0 * vec2(0.4, 0.1));
     float sunRayFactor = clamp(1.0 - slent - wdisp * 1.5, 0.0, 1.0);
     float rlent = length(v_wpos.zy / v_wpos.x * 7.8 * vec2(0.2, 0.1));
     float rayBlendFactor = clamp(1.0 - rlent - wdisp * 0.3, 0.0, 1.0);
-    
+
     float rbf = smoothstep(0.0, 1.0, rayBlendFactor);
     float srf = smoothstep(0.0, 0.75, sunRayFactor);
-    diffuse = mix(diffuse, vec4(v_color7.rgb,0.9), rbf * v_color7.a);
-    diffuse = mix(diffuse, vec4(v_color8.rgb,1.0), srf * v_color8.a);
+
+    diffuse = mix(diffuse, vec4(v_color7.rgb, 0.9), rbf * v_color7.a);
+    diffuse = mix(diffuse, vec4(v_color8.rgb, 1.0), srf * v_color8.a);
     #endif
-  }
+}
   #endif
   #endif
 

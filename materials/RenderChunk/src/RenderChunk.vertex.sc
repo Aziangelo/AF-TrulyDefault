@@ -81,22 +81,31 @@ void main() {
   // WORLD COLORS
   vec3 WorldColor;
   #ifdef ENABLE_LIGHTS
-    WorldColor = mix(mix(vec3(0.9, 0.94, 1.0), vec3(0.54, 0.46, 0.42), AFdusk), vec3(0.43, 0.43, 0.67), AFnight);
-    WorldColor = mix(WorldColor, vec3(0.14,0.14,0.14), isCaveX);
-    WorldColor = mix(WorldColor, mix(mix(vec3(0.45, 0.5, 0.6), vec3(0.2,0.2,0.2), AFdusk), vec3(0.2, 0.2, 0.3), AFnight), isCave * (1.0 - isCaveX));
-    WorldColor = mix(WorldColor, vec3(1.0,1.0,1.0), isLight);
+    vec3 dayColor = vec3(0.9, 0.94, 1.0);
+    vec3 duskColor = vec3(0.54, 0.46, 0.42);
+    vec3 nightColor = vec3(0.43, 0.43, 0.67);
+    vec3 caveDayColor = vec3(0.45, 0.5, 0.6);
+    vec3 caveDuskColor = vec3(0.2, 0.2, 0.2);
+    vec3 caveNightColor = vec3(0.2, 0.2, 0.3);
+    vec3 caveColor = mix(mix(caveDayColor, caveDuskColor, AFdusk), caveNightColor, AFnight);
+
+    WorldColor = mix(mix(dayColor, duskColor, AFdusk), nightColor, AFnight);
+    WorldColor = mix(WorldColor, vec3(0.14, 0.14, 0.14), isCaveX);
+    WorldColor = mix(WorldColor, caveColor, isCave * (1.0 - isCaveX));
+    WorldColor = mix(WorldColor, vec3(1.0, 1.0, 1.0), isLight);
   #endif
+
 
   // TORCH LIGHTS
   vec3 TorchColor;
   #if TORCHLIGHT_MODES == 0
-    TorchColor = vec3(0.9,0.9,0.9) * a_texcoord1.x;
+    TorchColor = vec3(0.9, 0.9, 0.9) * a_texcoord1.x;
   #elif TORCHLIGHT_MODES == 1
     float torchPower = pow(a_texcoord1.x * 1.09, 4.0);
-    TorchColor = vec3(torchColor) * torchPower;
+    TorchColor = torchColor * torchPower;
   #elif TORCHLIGHT_MODES == 2
     float smotherLight = smoothstep(0.7, 1.1, a_texcoord1.x);
-    TorchColor = vec3(torchColor) * smotherLight;
+    TorchColor = torchColor * smotherLight;
   #endif
   vec4 finalWColor;
   finalWColor = vec4(AOColor.rgb * WorldColor + TorchColor,1.0);
@@ -105,25 +114,25 @@ void main() {
   // SUN BLOOM WHEN DUSK
   vec4 sunblPos;
   #ifdef SUN_BLOOM
-  float sunlength = length(worldPos.zy / worldPos.x * 4.5);
-  float sunBloom = clamp(1.0 - sunlength, 0.0, 1.0);
-  float bloomFactor = smoothstep(0.0, 1.0, sunBloom) * SUN_BLOOM_STRENGTH * (1.0-AFnight) * (1.0-AFrain) * (AFdusk * a_texcoord1.y)  * fogColor.a;
-  vec4 bloomColor = vec4(1.0, 0.7, 0.1, 1.0);
-  sunblPos.rgb = bloomColor.rgb;
-  sunblPos.a = bloomFactor;
+    float invWorldPosX = 1.0 / worldPos.x;
+    float sunlength = length(worldPos.zy * 4.5 * invWorldPosX);
+    float sunBloom = clamp(1.0 - sunlength, 0.0, 1.0);
+    float bloomFactor = smoothstep(0.0, 1.0, sunBloom) * SUN_BLOOM_STRENGTH * (1.0 - AFnight) * (1.0 - AFrain) * (AFdusk * a_texcoord1.y) * fogColor.a;
+    vec3 bloomColor = vec3(1.0, 0.7, 0.1);
+    
+    sunblPos = vec4(bloomColor, bloomFactor);
   #endif
 
 
   // GROUND BLOOM WHEN DUSK
   vec4 grblColor;
   #ifdef GROUND_BLOOM
-  vec2 posRatio = worldPos.zy / worldPos.x;
-  vec2 scaleF = vec2(1.0, 0.5); 
-  float grblLen = length(posRatio * scaleF);
-  float sunRayBloom = clamp(1.0 - grblLen, 0.0, 1.0);
-  float mixFactor = smoothstep(0.0, 1.0, sunRayBloom) * GROUND_BLOOM_STRENGTH /* rayGrPos */* (1.0-isCave) * (1.0 - AFnight) * (1.0 - AFrain) * AFdusk;
-  grblColor.rgb = skyMIEP;
-  grblColor.a = mixFactor;
+    vec2 posRatio = worldPos.zy / worldPos.x;
+    float grblLen = length(posRatio * vec2(1.0, 0.5));
+    float sunRayBloom = clamp(1.0 - grblLen, 0.0, 1.0);
+    float mixFactor = smoothstep(0.0, 1.0, sunRayBloom) * GROUND_BLOOM_STRENGTH * (1.0 - isCave) * (1.0 - AFnight) * (1.0 - AFrain) * AFdusk;
+    
+    grblColor = vec4(skyMIEP, mixFactor);
   #endif
 
 
@@ -141,24 +150,22 @@ void main() {
   vec4 waterSim;
   vec4 waterRy1;
   vec4 waterRy2;
-    float wdisp = clamp(sin(noise(waterDisp)), 0.23, 1.0);
-    waterOpa = vec4(skyMIEX, 1.0) * 0.3;
-    
-    
-    float fadeFact = clamp(length(vec2(worldPos.xz * 0.3 / worldPos.y * 0.6)), 0.0, 1.0) * 0.8;
-    
-    //#ifdef SIMULATED_WATER // WATER SIMULATION ENABLE
-    vec3 simCol = vec3(skyMIEX * mix(1.0, 2.5, AFrain * AFnight));
+  float wdisp = clamp(sin(noise(waterDisp)), 0.23, 1.0);
+  waterOpa = vec4(skyMIEX, 1.0) * 0.3;
+ 
+  #ifdef SIMULATED_WATER
+   float fadeFact = clamp(length(vec2(worldPos.xz * 0.3 / worldPos.y * 0.6)), 0.0, 1.0) * 0.8;
+   vec3 simCol = vec3(skyMIEX * mix(1.0, 2.5, AFrain * AFnight));
     waterSim.rgb = simCol;
     waterSim.a = fadeFact;
-    //#endif
+  #endif
     
-    //#ifdef WATER_SUNRAY // WATER SUN RAYS BLOOM
+  #ifdef WATER_SUNRAY
     waterRy1.rgb = skyMIEP;
     waterRy1.a = a_texcoord1.y * (1.0 - AFnight) * (1.0 - AFrain) * (AFdusk);
     waterRy2.rgb = vec3(1.0, 0.7, 0.15) * 1.8;
     waterRy2.a = a_texcoord1.y * (1.0 - AFnight) * (1.0 - AFrain) * (AFdusk);
-    //#endif
+  #endif
 
   // THICK RAIN FOG
   vec4 rainTfog;
@@ -188,17 +195,17 @@ void main() {
 
   // WAVE EFFECTS STARTS HERE =============>>>>>>>>
   float htime = ViewPositionAndTime.w;
-  vec3 tlpos = vec3(mod (a_position, vec3(2.0, 2.0, 2.0)));
+  vec3 tlpos = mod(a_position, vec3(2.0,2.0,2.0));
 
-  // CALVULATE HEAT WAVE - Licensed By: Azi Angelo
+  // CALCULATE HEAT WAVE - Licensed By: Azi Angelo
   #ifdef HEAT_WAVE
   if (dev_Nether) {
-    float hw1 = sin(tlpos.z * 1.0 + htime * 11.0) * 0.005;
-    float hw2 = sin(tlpos.x * 1.0 + htime * 11.0) * 0.003;
-    float hw4 = sin(tlpos.y * 1.0 + htime * 11.0) * 0.00;
-    float hw5 = sin(tlpos.z) * 0.1;
-    gl_Position.x += hw1 + hw2 + hw4;
-    gl_Position.y += hw1 + hw2 + hw4;
+      float hw1 = sin(tlpos.z + htime * 11.0) * 0.005;
+      float hw2 = sin(tlpos.x + htime * 11.0) * 0.003;
+      float hw4 = sin(tlpos.y + htime * 11.0) * 0.00;
+      float hwSum = hw1 + hw2 + hw4;
+      
+      gl_Position.xy += hwSum;
   }
   #endif
 

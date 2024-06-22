@@ -1,98 +1,83 @@
-## AziFy: Truly Default
-The **AziFy Truly Default Shader** enhances the classic vanilla look of Minecraft while focusing on being lightweight and delivering ultra-realistic visuals. [View The Original Work Here](https://github.com/Aziangelo/AF-TrulyDefault/tree/main)
+# AziFy: Truly Default
+The AziFy Truly Default Shader, enhances the classic vanilla look of Minecraft. It tries to focus on being lightweight while delivering ultra-realistic visuals.
 
-**Supported Platforms**: Android, iOS, and Windows
-
-> **Warning**
+**Supports Android, iOS, and Windows**
+> [!Warning]
 > This is an experimental repository.
+
 
 ![Screenshot](azifyss/ss1.jpg "v3.0")
 ![Screenshot](azifyss/ss2.jpg "v3.0")
 ![Screenshot](azifyss/ss3.jpg "v3.0")
 
-## Features Turned Off by Default
+&nbsp;
+&nbsp;
+### Turn Off by Default Features
 ![Preview](azifyss/prev1.png "v3.0")
 ![Preview](azifyss/prev2.png "v3.0")
 ![Preview](azifyss/prev3.png "v3.0")
 
+
+&nbsp;
 ## Installation
 
-> **Note**
+> [!NOTE]
 > Shaders are not officially supported on Minecraft Bedrock. The following are unofficial ways to load shaders.
 
-### Linux
-1. Extract `material.bin` files from the shader MCPACK or build materials manually.
-2. Move these files to the data root `mcpelauncher/versions/1.20.x/assets/renderer/materials/` (make sure to backup all files in this folder first).
+**Linux:** [mcpelauncher-manifest](https://github.com/minecraft-linux/mcpelauncher-ui-manifest)
+1. Extract material.bin files from shader mcpack / build materials manually
+2. Move these files to data root `mcpelauncher/versions/1.20.x/assets/renderer/materials/`. (Make sure to backup all files in this folder first)
 3. Import the resource pack and activate it in global resources.
 
-### Windows
+**Windows:**
 1. Use [BetterRenderDragon](https://github.com/ddf8196/BetterRenderDragon) to enable MaterialBinLoader.
 2. Import the resource pack and activate it in global resources.
 
-### Android
-1. Install the [Patched Minecraft App](https://devendrn.github.io/renderdragon-shaders/shaders/installation/android#using-patch-app).
+**Android:**
+1. Install [Patched Minecraft App](https://devendrn.github.io/renderdragon-shaders/shaders/installation/android#using-patch-app)
 2. Import the resource pack and activate it in global resources.
 
+&nbsp;
 ## How To Customize?
+> This is an **Experimental Customization**
 
-> **Experimental Customization**
+### Android:
 
-### Android
-
-**Requirements:**
+Requirements:
 - Download Termux.
-- Download MT Manager.
+- Download MT manager.
 
-#### Step 1:
-- Open Termux and run:
-  ```sh
-  pkg install openjdk-17 git
-  ```
-- Clone this repository:
-  ```sh
-  git clone https://github.com/Aziangelo/<REPONAME>.git
-  ```
-- Set up the build environment:
-  ```sh
-  ./setup.sh
-  ```
-- Navigate to the cloned repository:
-  ```sh
-  cd <REPONAME>
-  ```
+**STEP 1:**
+- Open Termux and run `pkg install openjdk-17 git`
+- Get the clone of this repository: `https://github.com/Aziangelo/<REPONAME>.git`
+- Setup build environment: `./setup.sh`
+- run `cd <REPONAME>`
 
-#### Step 2:
-- Open MT Manager.
-- Click the menu, then click the `3 dots (...)`.
-- Click `Add local storage`.
-- Find Termux and click on it, then select `use this folder`.
+**STEP 2:**
+- Open MT manager.
+- Click the menu and then click the `3dots (...)`
+- Click `Add local storage`
+- Find termux and click on it then click `use this folder`
 
-#### Step 3:
-- Open the Termux folder and navigate to `<REPONAME>/include/azify`.
-- Open `shader_inputs.glsl`.
-- Edit and customize the shader as desired.
+**STEP 3:**
+- Now Open termux folder and open `AFnatural/include/azify`
+- Open `shader_inputs.glsl`
+- Now you can edit there and customize however you want.
 
-#### Step 4:
-- After finishing your customizations, build the shader using:
-  ```sh
-  ./build.sh
-  ```
-- To build only the terrain for Android and Windows, run:
-  ```sh
-  ./build.sh -m RenderChunk
-  ```
+**STEP 4:**
+- After FINISHED.
+- build the shader using `./build.sh`
+- if you wanted to build only terrain for Android and Windows run
+```./build.sh -m RenderChunk```
+If you want to compile RenderChunk.bin
 
-### Build Script Parameters
-| Option | Description |
+&nbsp;
+
+**Available parameters for the build script:**
+| Option | Parameter description |
 | :-: | :- |
 | -p | Target platforms (Android, Windows, iOS, Merged) |
 | -m | Materials to compile (if unspecified, builds all material files) |
 | -t | Number of threads to use for compilation (default is CPU core count) |
 
-Compiled `material.bin` files will be located in `build/<platform>/`.
-
-
-[View The Original Work Here](https://github.com/Aziangelo/AF-TrulyDefault/tree/main)
-## Download/Releases
-- [v3.0 Android/iOS](https://github.com/Aziangelo/AF-TrulyDefault/releases/tag/v3.0.1)
-
+Compiled material.bin files will be inside `build/<platform>/`

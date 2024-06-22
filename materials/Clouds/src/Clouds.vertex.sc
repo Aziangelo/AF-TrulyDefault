@@ -44,6 +44,7 @@ void main(){
      v_cpos = worldPos;
 
      gl_Position = mul(u_viewProj, vec4(worldPos,1.0));
+     gl_Position.y -= 25.5;
      float tm1 = ViewPositionAndTime.w;
      vec3 p3 = vec3(a_position.x, a_position.y, a_position.z);
      float w1 = sin(p3.z * 1.0 + tm1 * 1.5) * 0.47;
